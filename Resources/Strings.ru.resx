@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msIsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msOrdinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msOrdinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msOrdinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msOrdinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msOrdinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msOrdinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Menu.File" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Menu.File.Settings" xml:space="preserve">
+    <value>Настройки...</value>
+  </data>
+  <data name="Menu.File.Exit" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="Menu.Trading" xml:space="preserve">
+    <value>Торговля</value>
+  </data>
+  <data name="Menu.Trading.NewOrder" xml:space="preserve">
+    <value>Новый ордер...</value>
+  </data>
+  <data name="Menu.Trading.Positions" xml:space="preserve">
+    <value>Позиции</value>
+  </data>
+  <data name="Menu.Trading.OrderHistory" xml:space="preserve">
+    <value>История ордеров</value>
+  </data>
+  <data name="Menu.AI" xml:space="preserve">
+    <value>ИИ</value>
+  </data>
+  <data name="Menu.AI.Chat" xml:space="preserve">
+    <value>ИИ Чат</value>
+  </data>
+  <data name="Menu.AI.Servers" xml:space="preserve">
+    <value>MCP Серверы...</value>
+  </data>
+  <data name="Settings.Title" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Settings.Tab.Appearance" xml:space="preserve">
+    <value>Оформление</value>
+  </data>
+  <data name="Settings.Tab.Indicators" xml:space="preserve">
+    <value>Индикаторы</value>
+  </data>
+  <data name="Settings.Tab.Mcp" xml:space="preserve">
+    <value>MCP</value>
+  </data>
+  <data name="Settings.Mcp.Enable" xml:space="preserve">
+    <value>Включить MCP-сервер трейдинга</value>
+  </data>
+  <data name="Settings.Mcp.Running" xml:space="preserve">
+    <value>Работает — торговые инструменты отвечают локальным MCP-клиентам</value>
+  </data>
+  <data name="Settings.Mcp.Stopped" xml:space="preserve">
+    <value>Остановлен</value>
+  </data>
+  <data name="Settings.Mcp.StartFailed" xml:space="preserve">
+    <value>Запуск не удался — выбор сохранён и применится при следующем запуске</value>
+  </data>
+  <data name="Settings.Mcp.Hint" xml:space="preserve">
+    <value>Локальный MCP-сервер ("Zetta") отдаёт торговые инструменты этого терминала ИИ-ассистентам по stdio. В stdout не попадает ничего, кроме сообщений MCP-протокола.</value>
+  </data>
+  <data name="Settings.Tab.Pairs" xml:space="preserve">
+    <value>Пары</value>
+  </data>
+  <data name="Settings.Pairs.All" xml:space="preserve">
+    <value>Все пары</value>
+  </data>
+  <data name="Settings.Pairs.Hidden" xml:space="preserve">
+    <value>Скрытые пары</value>
+  </data>
+  <data name="Settings.Pairs.Hide" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="Settings.Pairs.Reveal" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="Settings.Pairs.Star" xml:space="preserve">
+    <value>Звезда — закрепить пару в начале списка (избранная пара не скрывается, пока звёздочка не снята)</value>
+  </data>
+  <data name="Settings.Pairs.Hint" xml:space="preserve">
+    <value>Кнопки «&gt;» и «&lt;» переносят выбранную пару между списками; скрытые пары уходят из списка инструментов рабочего места, а хотя бы одна видимая пара всегда остаётся. Кнопка «★» закрепляет пару в начале списка — избранная пара не скрывается, пока звёздочка не снята. Списки относятся к текущей бирже; изменения применяются по «Сохранить».</value>
+  </data>
+  <data name="Settings.Theme" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="Settings.Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Settings.Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Settings.Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Settings.ThemesFolder.Open" xml:space="preserve">
+    <value>Открыть папку тем</value>
+  </data>
+  <data name="Settings.ThemeErrors.Header" xml:space="preserve">
+    <value>Не удалось загрузить некоторые файлы тем:</value>
+  </data>
+  <data name="Settings.ThemeErrors.Hint" xml:space="preserve">
+    <value>Темы — JSON-файлы; схема описана в themes/trading-pro.json.</value>
+  </data>
+  <data name="Order.Buy" xml:space="preserve">
+    <value>Купить</value>
+  </data>
+  <data name="Order.Sell" xml:space="preserve">
+    <value>Продать</value>
+  </data>
+  <data name="Order.Market" xml:space="preserve">
+    <value>Рыночный</value>
+  </data>
+  <data name="Order.Limit" xml:space="preserve">
+    <value>Лимитный</value>
+  </data>
+  <data name="Status.Ready" xml:space="preserve">
+    <value>Готов</value>
+  </data>
+  <data name="Status.Connected" xml:space="preserve">
+    <value>Подключено</value>
+  </data>
+  <data name="Status.Disconnected" xml:space="preserve">
+    <value>Отключено</value>
+  </data>
+  <data name="Status.ExchangePicker" xml:space="preserve">
+    <value>Активная биржа</value>
+  </data>
+  <data name="Status.PaperMode" xml:space="preserve">
+    <value>Paper</value>
+  </data>
+  <data name="Status.ExchangeFallback" xml:space="preserve">
+    <value>Сохранённая биржа недоступна — продолжаем на бирже по умолчанию</value>
+  </data>
+  <data name="AI.Assistant" xml:space="preserve">
+    <value>ИИ Ассистент</value>
+  </data>
+  <data name="AI.Chat.Send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="AI.Chat.Placeholder" xml:space="preserve">
+    <value>Спросите ассистента о рынке...</value>
+  </data>
+  <data name="AI.Chat.Error" xml:space="preserve">
+    <value>Ассистент недоступен: {0}</value>
+  </data>
+  <data name="AI.Chat.RoleUser" xml:space="preserve">
+    <value>Трейдер</value>
+  </data>
+  <data name="AI.Chat.RoleAssistant" xml:space="preserve">
+    <value>Ассистент</value>
+  </data>
+  <data name="Chart.NoDataMessage" xml:space="preserve">
+    <value>Нет данных</value>
+  </data>
+  <data name="Chart.TimeFrame" xml:space="preserve">
+    <value>Таймфрейм</value>
+  </data>
+  <data name="Chart.TimeFormat" xml:space="preserve">
+    <value>Формат времени</value>
+  </data>
+  <data name="Chart.TimeFormat.Hours24" xml:space="preserve">
+    <value>24-часовой</value>
+  </data>
+  <data name="Chart.TimeFormat.Hours12" xml:space="preserve">
+    <value>12-часовой</value>
+  </data>
+  <data name="Chart.Indicators" xml:space="preserve">
+    <value>Индикаторы</value>
+  </data>
+  <data name="Chart.Indicators.Period" xml:space="preserve">
+    <value>Период</value>
+  </data>
+  <data name="Chart.Indicators.SmaTip" xml:space="preserve">
+    <value>Простая скользящая средняя: среднее закрытие за последние N баров, линия поверх свечей.</value>
+  </data>
+  <data name="Trading.ConfirmationTitle" xml:space="preserve">
+    <value>Требуется подтверждение</value>
+  </data>
+  <data name="Trading.Confirm" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="Trading.Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Order.StopMarket" xml:space="preserve">
+    <value>Стоп-маркет</value>
+  </data>
+  <data name="Order.StopLimit" xml:space="preserve">
+    <value>Стоп-лимит</value>
+  </data>
+  <data name="Trading.ConfirmPlaceOrderFormat" xml:space="preserve">
+    <value>Ордер {1}: {0} {2} {3} — {4}?</value>
+  </data>
+  <data name="Trading.PriceMarket" xml:space="preserve">
+    <value>по рыночной цене</value>
+  </data>
+  <data name="NewOrder.Title" xml:space="preserve">
+    <value>Новый ордер</value>
+  </data>
+  <data name="NewOrder.Symbol" xml:space="preserve">
+    <value>Инструмент</value>
+  </data>
+  <data name="NewOrder.SymbolMissing" xml:space="preserve">
+    <value>Инструмент обязателен</value>
+  </data>
+  <data name="NewOrder.SymbolInvalid" xml:space="preserve">
+    <value>Неизвестный формат инструмента: {0}. Используйте БАЗА/КВОТА, например BTC/USDT.</value>
+  </data>
+  <data name="NewOrder.Side" xml:space="preserve">
+    <value>Сторона</value>
+  </data>
+  <data name="NewOrder.OrderType" xml:space="preserve">
+    <value>Тип ордера</value>
+  </data>
+  <data name="NewOrder.Quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="NewOrder.QuantityNotANumber" xml:space="preserve">
+    <value>Количество не является числом: {0}</value>
+  </data>
+  <data name="NewOrder.QuantityRequired" xml:space="preserve">
+    <value>Количество обязательно</value>
+  </data>
+  <data name="NewOrder.Price" xml:space="preserve">
+    <value>Лимитная цена</value>
+  </data>
+  <data name="NewOrder.PriceNotANumber" xml:space="preserve">
+    <value>Лимитная цена не является числом: {0}</value>
+  </data>
+  <data name="NewOrder.PriceRequired" xml:space="preserve">
+    <value>Лимитная цена обязательна</value>
+  </data>
+  <data name="NewOrder.Place" xml:space="preserve">
+    <value>Разместить ордер</value>
+  </data>
+  <data name="NewOrder.PlaceFailed" xml:space="preserve">
+    <value>Ордер не размещён: {0}</value>
+  </data>
+  <data name="NewOrder.OrderRejected" xml:space="preserve">
+    <value>Отклонено риск-контролем: {0}</value>
+  </data>
+  <data name="NewOrder.OrderPlaced" xml:space="preserve">
+    <value>Ордер размещён: {0}</value>
+  </data>
+  <data name="Positions.Title" xml:space="preserve">
+    <value>Позиции и ордера</value>
+  </data>
+  <data name="Positions.PositionsHeader" xml:space="preserve">
+    <value>Открытые позиции</value>
+  </data>
+  <data name="Positions.NoPositions" xml:space="preserve">
+    <value>Нет открытых позиций</value>
+  </data>
+  <data name="Positions.OpenOrdersHeader" xml:space="preserve">
+    <value>Открытые ордера</value>
+  </data>
+  <data name="Positions.NoOpenOrders" xml:space="preserve">
+    <value>Нет открытых ордеров</value>
+  </data>
+  <data name="Positions.RecentHeader" xml:space="preserve">
+    <value>Ордера, размещённые в этой сессии</value>
+  </data>
+  <data name="Positions.NoRecent" xml:space="preserve">
+    <value>В этой сессии ещё ничего не размещалось</value>
+  </data>
+  <data name="Positions.Symbol" xml:space="preserve">
+    <value>Символ</value>
+  </data>
+  <data name="Positions.Side" xml:space="preserve">
+    <value>Направление</value>
+  </data>
+  <data name="Positions.ColQuantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="Positions.ColPrice" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Positions.ColStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Positions.ColOpened" xml:space="preserve">
+    <value>Время открытия</value>
+  </data>
+  <data name="Positions.StatusPending" xml:space="preserve">
+    <value>Ожидает</value>
+  </data>
+  <data name="Positions.StatusSubmitted" xml:space="preserve">
+    <value>Отправлен</value>
+  </data>
+  <data name="Positions.StatusPartiallyFilled" xml:space="preserve">
+    <value>Частично исполнен</value>
+  </data>
+  <data name="Positions.StatusFilled" xml:space="preserve">
+    <value>Исполнен</value>
+  </data>
+  <data name="Positions.StatusCancelled" xml:space="preserve">
+    <value>Отменён</value>
+  </data>
+  <data name="Positions.StatusRejected" xml:space="preserve">
+    <value>Отклонён</value>
+  </data>
+  <data name="Positions.StatusExpired" xml:space="preserve">
+    <value>Истёк</value>
+  </data>
+  <data name="Positions.Cancelled" xml:space="preserve">
+    <value>Ордер отменён: {0}</value>
+  </data>
+  <data name="Positions.CancelFailed" xml:space="preserve">
+    <value>Ордер не был отменён: {0}</value>
+  </data>
+  <data name="Positions.ConfirmCancelFormat" xml:space="preserve">
+    <value>Отменить ордер {1} ({2} {3}, {0})?</value>
+  </data>
+  <data name="Positions.LoadFailed" xml:space="preserve">
+    <value>Не удалось загрузить позиции и ордера: {0}</value>
+  </data>
+  <data name="Positions.CancelCurrentPosition" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="Positions.Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="History.Title" xml:space="preserve">
+    <value>История ордеров</value>
+  </data>
+  <data name="History.Empty" xml:space="preserve">
+    <value>Пока нет записей об ордерах</value>
+  </data>
+  <data name="History.ColOpened" xml:space="preserve">
+    <value>Открыт</value>
+  </data>
+  <data name="History.ColExchange" xml:space="preserve">
+    <value>Биржа</value>
+  </data>
+  <data name="History.ColSymbol" xml:space="preserve">
+    <value>Символ</value>
+  </data>
+  <data name="History.ColSide" xml:space="preserve">
+    <value>Направление</value>
+  </data>
+  <data name="History.ColType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="History.ColQuantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="History.ColPrice" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="History.ColStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="History.LoadFailed" xml:space="preserve">
+    <value>Не удалось загрузить историю ордеров: {0}</value>
+  </data>
+  <data name="History.Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="OrderBook.Title" xml:space="preserve">
+    <value>Стакан ордеров</value>
+  </data>
+  <data name="OrderBook.NoDataMessage" xml:space="preserve">
+    <value>Нет данных</value>
+  </data>
+  <data name="OrderBook.Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="OrderBook.CumulativeVolume" xml:space="preserve">
+    <value>Объём</value>
+  </data>
+  <data name="OrderBook.SpreadFormat" xml:space="preserve">
+    <value>Спред: {0}</value>
+  </data>
+</root>

@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msIsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msOrdinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msOrdinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msOrdinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msOrdinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msOrdinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msOrdinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Menu.File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Menu.File.Settings" xml:space="preserve">
+    <value>Settings...</value>
+  </data>
+  <data name="Menu.File.Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Menu.Trading" xml:space="preserve">
+    <value>Trading</value>
+  </data>
+  <data name="Menu.Trading.NewOrder" xml:space="preserve">
+    <value>New Order...</value>
+  </data>
+  <data name="Menu.Trading.Positions" xml:space="preserve">
+    <value>Positions</value>
+  </data>
+  <data name="Menu.Trading.OrderHistory" xml:space="preserve">
+    <value>Order History</value>
+  </data>
+  <data name="Menu.AI" xml:space="preserve">
+    <value>AI</value>
+  </data>
+  <data name="Menu.AI.Chat" xml:space="preserve">
+    <value>AI Chat</value>
+  </data>
+  <data name="Menu.AI.Servers" xml:space="preserve">
+    <value>MCP Servers...</value>
+  </data>
+  <data name="Settings.Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings.Tab.Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="Settings.Tab.Indicators" xml:space="preserve">
+    <value>Indicators</value>
+  </data>
+  <data name="Settings.Tab.Mcp" xml:space="preserve">
+    <value>MCP</value>
+  </data>
+  <data name="Settings.Mcp.Enable" xml:space="preserve">
+    <value>Enable the MCP trading server</value>
+  </data>
+  <data name="Settings.Mcp.Running" xml:space="preserve">
+    <value>Running — the trading tools answer local MCP clients</value>
+  </data>
+  <data name="Settings.Mcp.Stopped" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="Settings.Mcp.StartFailed" xml:space="preserve">
+    <value>Start failed — the saved choice is kept and applies on the next launch</value>
+  </data>
+  <data name="Settings.Mcp.Hint" xml:space="preserve">
+    <value>The local MCP server ("Zetta") exposes this terminal's trading tools to AI assistants over stdio. Nothing outside MCP protocol messages ever reaches stdout.</value>
+  </data>
+  <data name="Settings.Tab.Pairs" xml:space="preserve">
+    <value>Pairs</value>
+  </data>
+  <data name="Settings.Pairs.All" xml:space="preserve">
+    <value>All pairs</value>
+  </data>
+  <data name="Settings.Pairs.Hidden" xml:space="preserve">
+    <value>Hidden pairs</value>
+  </data>
+  <data name="Settings.Pairs.Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Settings.Pairs.Reveal" xml:space="preserve">
+    <value>Reveal</value>
+  </data>
+  <data name="Settings.Pairs.Star" xml:space="preserve">
+    <value>Star — pin the pair to the list head (a starred pair is never hidden until unstarred)</value>
+  </data>
+  <data name="Settings.Pairs.Hint" xml:space="preserve">
+    <value>The '&gt;' and '&lt;' buttons move a picked pair between the lists; hidden pairs leave the workspace symbol picker, and at least one visible pair stays. The '★' button pins a pair to the head of the list — a starred pair is never hidden until it is unstarred. The lists apply to the current exchange; changes apply on Save.</value>
+  </data>
+  <data name="Settings.Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings.Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Settings.Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Settings.ThemesFolder.Open" xml:space="preserve">
+    <value>Open themes folder</value>
+  </data>
+  <data name="Settings.ThemeErrors.Header" xml:space="preserve">
+    <value>Some theme files failed to load:</value>
+  </data>
+  <data name="Settings.ThemeErrors.Hint" xml:space="preserve">
+    <value>Themes are JSON files; themes/trading-pro.json is the schema example.</value>
+  </data>
+  <data name="Order.Buy" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="Order.Sell" xml:space="preserve">
+    <value>Sell</value>
+  </data>
+  <data name="Order.Market" xml:space="preserve">
+    <value>Market</value>
+  </data>
+  <data name="Order.Limit" xml:space="preserve">
+    <value>Limit</value>
+  </data>
+  <data name="Status.Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="Status.Connected" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="Status.Disconnected" xml:space="preserve">
+    <value>Disconnected</value>
+  </data>
+  <data name="Status.ExchangePicker" xml:space="preserve">
+    <value>Active exchange</value>
+  </data>
+  <data name="Status.PaperMode" xml:space="preserve">
+    <value>Paper</value>
+  </data>
+  <data name="Status.ExchangeFallback" xml:space="preserve">
+    <value>Saved exchange unavailable — continuing on the default one</value>
+  </data>
+  <data name="AI.Assistant" xml:space="preserve">
+    <value>AI Assistant</value>
+  </data>
+  <data name="AI.Chat.Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="AI.Chat.Placeholder" xml:space="preserve">
+    <value>Ask the assistant about the market...</value>
+  </data>
+  <data name="AI.Chat.Error" xml:space="preserve">
+    <value>The assistant is unavailable: {0}</value>
+  </data>
+  <data name="AI.Chat.RoleUser" xml:space="preserve">
+    <value>Trader</value>
+  </data>
+  <data name="AI.Chat.RoleAssistant" xml:space="preserve">
+    <value>Assistant</value>
+  </data>
+  <data name="Chart.NoDataMessage" xml:space="preserve">
+    <value>No data available</value>
+  </data>
+  <data name="Chart.TimeFrame" xml:space="preserve">
+    <value>Time frame</value>
+  </data>
+  <data name="Chart.TimeFormat" xml:space="preserve">
+    <value>Time format</value>
+  </data>
+  <data name="Chart.TimeFormat.Hours24" xml:space="preserve">
+    <value>24-hour</value>
+  </data>
+  <data name="Chart.TimeFormat.Hours12" xml:space="preserve">
+    <value>12-hour</value>
+  </data>
+  <data name="Chart.Indicators" xml:space="preserve">
+    <value>Indicators</value>
+  </data>
+  <data name="Chart.Indicators.Period" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="Chart.Indicators.SmaTip" xml:space="preserve">
+    <value>Simple Moving Average: the mean close over the last N bars, drawn as a line over the candles.</value>
+  </data>
+  <data name="Trading.ConfirmationTitle" xml:space="preserve">
+    <value>Confirmation required</value>
+  </data>
+  <data name="Trading.Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Trading.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Order.StopMarket" xml:space="preserve">
+    <value>Stop-Market</value>
+  </data>
+  <data name="Order.StopLimit" xml:space="preserve">
+    <value>Stop-Limit</value>
+  </data>
+  <data name="Trading.ConfirmPlaceOrderFormat" xml:space="preserve">
+    <value>Place {0} {1} order {2} {3} at {4}?</value>
+  </data>
+  <data name="Trading.PriceMarket" xml:space="preserve">
+    <value>market price</value>
+  </data>
+  <data name="NewOrder.Title" xml:space="preserve">
+    <value>New Order</value>
+  </data>
+  <data name="NewOrder.Symbol" xml:space="preserve">
+    <value>Symbol</value>
+  </data>
+  <data name="NewOrder.SymbolMissing" xml:space="preserve">
+    <value>Symbol is required</value>
+  </data>
+  <data name="NewOrder.SymbolInvalid" xml:space="preserve">
+    <value>Unknown symbol format: {0}. Use BASE/QUOTE, for example BTC/USDT.</value>
+  </data>
+  <data name="NewOrder.Side" xml:space="preserve">
+    <value>Side</value>
+  </data>
+  <data name="NewOrder.OrderType" xml:space="preserve">
+    <value>Order type</value>
+  </data>
+  <data name="NewOrder.Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="NewOrder.QuantityNotANumber" xml:space="preserve">
+    <value>Quantity is not a number: {0}</value>
+  </data>
+  <data name="NewOrder.QuantityRequired" xml:space="preserve">
+    <value>Quantity is required</value>
+  </data>
+  <data name="NewOrder.Price" xml:space="preserve">
+    <value>Limit price</value>
+  </data>
+  <data name="NewOrder.PriceNotANumber" xml:space="preserve">
+    <value>Limit price is not a number: {0}</value>
+  </data>
+  <data name="NewOrder.PriceRequired" xml:space="preserve">
+    <value>Limit price is required</value>
+  </data>
+  <data name="NewOrder.Place" xml:space="preserve">
+    <value>Place order</value>
+  </data>
+  <data name="NewOrder.PlaceFailed" xml:space="preserve">
+    <value>Order was not placed: {0}</value>
+  </data>
+  <data name="NewOrder.OrderRejected" xml:space="preserve">
+    <value>Rejected by risk controls: {0}</value>
+  </data>
+  <data name="NewOrder.OrderPlaced" xml:space="preserve">
+    <value>Order placed: {0}</value>
+  </data>
+  <data name="Positions.Title" xml:space="preserve">
+    <value>Positions and orders</value>
+  </data>
+  <data name="Positions.PositionsHeader" xml:space="preserve">
+    <value>Open positions</value>
+  </data>
+  <data name="Positions.NoPositions" xml:space="preserve">
+    <value>No open positions</value>
+  </data>
+  <data name="Positions.OpenOrdersHeader" xml:space="preserve">
+    <value>Open orders</value>
+  </data>
+  <data name="Positions.NoOpenOrders" xml:space="preserve">
+    <value>No open orders</value>
+  </data>
+  <data name="Positions.RecentHeader" xml:space="preserve">
+    <value>Orders placed this session</value>
+  </data>
+  <data name="Positions.NoRecent" xml:space="preserve">
+    <value>Nothing placed in this session yet</value>
+  </data>
+  <data name="Positions.Symbol" xml:space="preserve">
+    <value>Symbol</value>
+  </data>
+  <data name="Positions.Side" xml:space="preserve">
+    <value>Side</value>
+  </data>
+  <data name="Positions.ColQuantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Positions.ColPrice" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Positions.ColStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Positions.ColOpened" xml:space="preserve">
+    <value>Opened</value>
+  </data>
+  <data name="Positions.StatusPending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Positions.StatusSubmitted" xml:space="preserve">
+    <value>Submitted</value>
+  </data>
+  <data name="Positions.StatusPartiallyFilled" xml:space="preserve">
+    <value>Partially filled</value>
+  </data>
+  <data name="Positions.StatusFilled" xml:space="preserve">
+    <value>Filled</value>
+  </data>
+  <data name="Positions.StatusCancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="Positions.StatusRejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="Positions.StatusExpired" xml:space="preserve">
+    <value>Expired</value>
+  </data>
+  <data name="Positions.Cancelled" xml:space="preserve">
+    <value>Order cancelled: {0}</value>
+  </data>
+  <data name="Positions.CancelFailed" xml:space="preserve">
+    <value>Order was not cancelled: {0}</value>
+  </data>
+  <data name="Positions.ConfirmCancelFormat" xml:space="preserve">
+    <value>Cancel the {0} order {1} ({2} {3})?</value>
+  </data>
+  <data name="Positions.LoadFailed" xml:space="preserve">
+    <value>Could not load positions and orders: {0}</value>
+  </data>
+  <data name="Positions.CancelCurrentPosition" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Positions.Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="History.Title" xml:space="preserve">
+    <value>Order History</value>
+  </data>
+  <data name="History.Empty" xml:space="preserve">
+    <value>No orders recorded yet</value>
+  </data>
+  <data name="History.ColOpened" xml:space="preserve">
+    <value>Opened</value>
+  </data>
+  <data name="History.ColExchange" xml:space="preserve">
+    <value>Exchange</value>
+  </data>
+  <data name="History.ColSymbol" xml:space="preserve">
+    <value>Symbol</value>
+  </data>
+  <data name="History.ColSide" xml:space="preserve">
+    <value>Side</value>
+  </data>
+  <data name="History.ColType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="History.ColQuantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="History.ColPrice" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="History.ColStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="History.LoadFailed" xml:space="preserve">
+    <value>Could not load the order history: {0}</value>
+  </data>
+  <data name="History.Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="OrderBook.Title" xml:space="preserve">
+    <value>Order Book</value>
+  </data>
+  <data name="OrderBook.NoDataMessage" xml:space="preserve">
+    <value>No data available</value>
+  </data>
+  <data name="OrderBook.Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="OrderBook.CumulativeVolume" xml:space="preserve">
+    <value>Cumulative volume</value>
+  </data>
+  <data name="OrderBook.SpreadFormat" xml:space="preserve">
+    <value>Spread: {0}</value>
+  </data>
+</root>
