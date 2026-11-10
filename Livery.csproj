@@ -16,6 +16,11 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ZettaTrade/Livery.git</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- A root-level csproj globs everything below it; the tests tree is
+         the test project's own compile scope (its ProjectReference builds
+         this library), so keep it out of the library's compile glob. -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);tests/**</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>

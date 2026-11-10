@@ -1,7 +1,7 @@
 # Build-quality CI for the work branch: every develop commit compiles the
-# library (including the Avalonia XAML compilation) before it can ride a
-# release. Publishing itself is main-only - see publish.yml (tags v* and
-# manual dispatch from main).
+# library (including the Avalonia XAML compilation) and runs the style-pin
+# suite before it can ride a release. Publishing itself is main-only - see
+# publish.yml (tags v* and manual dispatch from main).
 name: build
 
 on:
@@ -29,3 +29,6 @@ jobs:
 
       - name: Build
         run: dotnet build Livery.csproj -c Release
+
+      - name: Test the style pins
+        run: dotnet test Livery.Tests/Livery.Tests.csproj -c Release
