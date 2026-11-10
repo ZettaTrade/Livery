@@ -6,8 +6,21 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Livery</RootNamespace>
     <AssemblyName>Livery</AssemblyName>
+    <LangVersion>preview</LangVersion>
     <Description>Standalone appearance layer: localization and the JSON theme engine.</Description>
+    <!-- NuGet packaging (GitHub Packages feed; a later nuget.org move only
+         changes the push target - the consumer PackageReference stays). -->
+    <PackageId>Livery</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>ZettaTrade Contributors</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/ZettaTrade/Livery.git</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <!-- The library styles (window chrome templates + title bar + the

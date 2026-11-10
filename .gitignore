@@ -1,0 +1,38 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.dll
+*.exe
+*.pdb
+
+## IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Build
+dist/
+publish/
+*.nupkg
+
+## Secrets (never commit)
+secrets.dat
+secrets.enc
+secrets.enc.salt
+
+## Logs
+*.log
+
+## Test artifacts
+TestResults/
+
+## Soak reports (T-109): the harness output is evidence, not repo content
+.soak/
