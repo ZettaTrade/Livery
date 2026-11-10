@@ -31,4 +31,4 @@ jobs:
         run: dotnet build Livery.csproj -c Release
 
       - name: Test the style pins
-        run: dotnet test Livery.Tests/Livery.Tests.csproj -c Release
+        run: dotnet test tests/Livery.Tests/Livery.Tests.csproj -c Release
