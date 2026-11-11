@@ -107,6 +107,39 @@ public sealed class StylePins
             "the close button is icon-only — its name must never rely on the tooltip");
     }
 
+    /// <summary>
+    /// The strip's grid is Auto,*,Auto,Auto,Auto: the logo, the title, the
+    /// minimize button, the maximize/restore state pair and the close
+    /// button. The maximize/restore pair shares one state slot BY DESIGN —
+    /// one of them hides with the other showing. The close button rides its
+    /// OWN column: the logo-slot addition (Livery 0.1.8) shifted the other
+    /// buttons one column right but left the close button's attribute — it
+    /// overlapped the maximize slot ever since (the user-reported T-167
+    /// "the close and maximize buttons pile onto each other").
+    /// </summary>
+    [Fact]
+    public void EveryTitleBarStripButton_OccupiesItsOwnColumnOrTheStatePair()
+    {
+        var source = ControlsThemes;
+
+        StripButtonColumn(source, "PART_MinimizeButton").Should().Be(2);
+        StripButtonColumn(source, "PART_MaximizeButton").Should().Be(3);
+        StripButtonColumn(source, "PART_RestoreButton").Should().Be(3,
+            "the maximize/restore pair shares one state slot by design — one of them hides with the other showing");
+        StripButtonColumn(source, "PART_CloseButton").Should().Be(4,
+            "the close button rides its own column; sharing the maximize slot piles the two buttons together (T-167)");
+    }
+
+    /// <summary>The grid column a named strip button block declares.</summary>
+    private static int StripButtonColumn(string source, string partName)
+    {
+        var match = System.Text.RegularExpressions.Regex.Match(
+            source,
+            $@"<Button Name=""{partName}""[\s\S]*?Grid\.Column=""(\d+)""");
+        match.Success.Should().BeTrue($"the {partName} block must declare its grid column");
+        return int.Parse(match.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
+    }
+
     [Fact]
     public void TheSharedThemes_CarryTheKeyboardFocusIndicators()
     {

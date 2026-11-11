@@ -237,7 +237,7 @@
                         </Button>
 
                         <Button Name="PART_CloseButton"
-                                Grid.Column="3"
+                                Grid.Column="4"
                                 Classes="strip-icon strip-close"
                                 Width="44" Height="32"
                                 AutomationProperties.Name="{loc:Localized Chrome.Close}"
