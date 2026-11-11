@@ -280,4 +280,126 @@
     <Style Selector="livery|TitleBar Button.strip-close:pointerover Path">
         <Setter Property="Stroke" Value="{DynamicResource Error}" />
     </Style>
+
+    <!-- ============================================================== -->
+    <!-- The shared chrome kit (T-154): Chip, StateDot, the toggle .on   -->
+    <!-- class, IconButton, InfoIcon — the vocabulary the views once     -->
+    <!-- re-typed by hand. Every fill/text key is a palette key, so the  -->
+    <!-- kit retints live with the themes.                               -->
+    <!-- ============================================================== -->
+
+    <!-- The chip: the rounded state badge (the trading-lane pill and the
+         testnet badges). The shape, the per-state fills and the caption
+         treatment live here; the readable foreground (T-152) rides the
+         host's derived ChipForeground brush — a host without the
+         derivation keeps its ambient foreground honestly. -->
+    <Style Selector="Border.chip">
+        <Setter Property="CornerRadius" Value="9" />
+        <Setter Property="Padding" Value="8,2" />
+    </Style>
+    <Style Selector="Border.chip > TextBlock">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource ChipForeground}" />
+    </Style>
+    <Style Selector="Border.chip.paper">
+        <Setter Property="Background" Value="{DynamicResource CandleUp}" />
+    </Style>
+    <Style Selector="Border.chip.testnet">
+        <Setter Property="Background" Value="{DynamicResource Highlight}" />
+    </Style>
+    <Style Selector="Border.chip.live">
+        <Setter Property="Background" Value="{DynamicResource Error}" />
+    </Style>
+
+    <!-- The state dot: the small ellipse whose fill the state class picks
+         from the same palette keys the chips speak (the health strip's
+         T-098 vocabulary). The size stays the consumer's; the `dot` base
+         class namespaces the states so the kit never grabs a foreign
+         ellipse. -->
+    <Style Selector="Ellipse.dot.connected">
+        <Setter Property="Fill" Value="{DynamicResource CandleUp}" />
+    </Style>
+    <Style Selector="Ellipse.dot.reconnecting">
+        <Setter Property="Fill" Value="{DynamicResource Highlight}" />
+    </Style>
+    <Style Selector="Ellipse.dot.down">
+        <Setter Property="Fill" Value="{DynamicResource Error}" />
+    </Style>
+    <Style Selector="Ellipse.dot.unsupervised">
+        <Setter Property="Fill" Value="{DynamicResource TextSecondary}" />
+    </Style>
+
+    <!-- The toggle .on class (the chart toolbar's five copies moved here
+         verbatim): the armed toggle reads full-bright over the Highlight
+         stroke and text; the rest-state dimming stays the consumer's. -->
+    <Style Selector="Button.on, ToggleButton.on">
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Highlight}" />
+        <Setter Property="Foreground" Value="{DynamicResource Highlight}" />
+    </Style>
+
+    <!-- The icon button: the strip-icon-like action — borderless and
+         background-free with the title-bar strip's opacity feedback. The
+         Fluent button paints its state fill on the template's content
+         presenter, so the presenter is the suppression target (the same
+         mechanism the title-bar strip-icon styles carry). -->
+    <Style Selector="Button.icon">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Opacity" Value="0.85" />
+    </Style>
+    <Style Selector="Button.icon /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.icon:pointerover">
+        <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="Button.icon:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.icon:pressed">
+        <Setter Property="Opacity" Value="0.8" />
+    </Style>
+    <Style Selector="Button.icon:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.icon:focus">
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Highlight}" />
+    </Style>
+    <Style Selector="Button.icon:focus /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <!-- The info icon: the circled "i" affordance (the settings surface's
+         seven Border+TextBlock copies became this control). Focusable with
+         the keyboard-focus ring on the template ring (the T-110 canon:
+         every focusable control shows a visible marker); the consumer
+         carries the automation name and the tooltip on the control. -->
+    <Style Selector="livery|InfoIcon">
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Height" Value="16" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="PART_Ring"
+                        CornerRadius="8"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource Border}">
+                    <TextBlock Text="i"
+                               FontSize="10"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource TextSecondary}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="livery|InfoIcon:focus /template/ Border#PART_Ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource Highlight}" />
+    </Style>
 </Styles>

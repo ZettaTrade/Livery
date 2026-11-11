@@ -3,6 +3,19 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.5] - 2026-11-11
+
+- The shared chrome kit (T-154): the vocabulary the consumer views once
+  re-typed by hand lives here once — the `chip` style class (the rounded
+  state badge: shape, the paper/testnet/live fills, the caption treatment
+  riding the host's derived `ChipForeground`), the `dot` class for the
+  state ellipses (connected/reconnecting/down/unsupervised over
+  CandleUp/Highlight/Error/TextSecondary), the `Button.on, ToggleButton.on`
+  armed-toggle class, the `Button.icon` strip-action class and the
+  `InfoIcon` templated control — the circled "i" affordance, focusable
+  with a keyboard-focus ring and automation-named by the consumer (the
+  a11y step up: the pointer-only cue copies become keyboard-reachable).
+
 ## [0.1.4] - 2026-11-11
 
 - The palette role contract (T-151): `PaletteContract` documents the role
