@@ -11,7 +11,7 @@
     <!-- NuGet packaging (GitHub Packages feed; a later nuget.org move only
          changes the push target - the consumer PackageReference stays). -->
     <PackageId>Livery</PackageId>
-    <Version>0.1.5</Version>
+    <Version>0.1.6</Version>
     <Authors>ZettaTrade Contributors</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ZettaTrade/Livery.git</RepositoryUrl>
@@ -32,6 +32,10 @@
          control restyling) ship as a compiled Avalonia resource; the host
          includes them via <StyleInclude Source="avares://Livery/Themes/Controls.axaml" />. -->
     <AvaloniaResource Include="Themes\Controls.axaml" />
+    <!-- The type/spacing/numeric tokens (T-155) ship as a compiled
+         Avalonia resource; the host merges them via
+         <ResourceInclude Source="avares://Livery/Themes/Tokens.axaml" />. -->
+    <AvaloniaResource Include="Themes\Tokens.axaml" />
     <InternalsVisibleTo Include="ZettaTrade.UI.Tests" />
     <PackageReference Include="Avalonia" Version="12.1.4" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.14" />

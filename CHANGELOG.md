@@ -3,6 +3,20 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.6] - 2026-11-11
+
+- The type tokens (T-155): `Themes/Tokens.axaml` publishes the documented
+  ramp (Caption 11 / Body 13 / SubtitleStrong 14 / Title 16 — the platform
+  default of 12 stays implicit, so hosts carry no 12 literal), the spacing
+  scale 4/8/12/16/24 in both shapes (the raw `Space*` doubles for the
+  Spacing family, the uniform `Inset*` Thickness for Margin/Padding) and
+  the `NumericFont` monospaced stack (the HUD's precedent) for the numeric
+  surfaces. Static design constants read with StaticResource; the host
+  merges the dictionary via
+  `<ResourceInclude Source="avares://Livery/Themes/Tokens.axaml" />`.
+- The pins hold the token shapes: the ramp values, the scale pairs, the
+  numeric stack membership and the packaged resource inclusion.
+
 ## [0.1.5] - 2026-11-11
 
 - The shared chrome kit (T-154): the vocabulary the consumer views once
