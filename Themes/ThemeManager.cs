@@ -608,6 +608,12 @@ public sealed class ThemeManager : IThemeManager, IAsyncInitializable, IDisposab
     /// the foundation keys, so a theme the palette can't fully serve leaves
     /// the previous theme's values in place (exactly what the palette keys
     /// themselves do when a role is omitted).
+    /// The brush-family members publish as brushes: Avalonia 12's property
+    /// store enforces value-type identity per effectively bound entry — a
+    /// stock template resolves the key with a brush first (the hosted
+    /// Fluent dictionary's own value), and a raw Color arriving on the next
+    /// resources change throws the effective-value entry wide. The accent
+    /// family publishes as Colors (the stock values there are Colors too).
     /// </summary>
     private void PublishDerivedSystemKeys(IReadOnlyDictionary<string, string> colors)
     {
@@ -620,7 +626,10 @@ public sealed class ThemeManager : IThemeManager, IAsyncInitializable, IDisposab
 
         foreach (var (key, color) in derived)
         {
-            Application.Current!.Resources[key] = color;
+            Application.Current!.Resources[key] =
+                key.EndsWith("Brush", StringComparison.Ordinal)
+                    ? new Avalonia.Media.SolidColorBrush(color)
+                    : color;
         }
 
         _logger.LogDebug("Published {Count} derived Fluent system keys", derived.Count);

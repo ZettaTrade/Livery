@@ -3,6 +3,17 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.3] - 2026-11-11
+
+- The brush-family publish fix (T-150, riding a real consumer scene): the
+  derived `SystemControl*Brush` members must publish as brushes, not
+  Colors. Avalonia 12's property store enforces value-type identity per
+  effectively bound entry — a stock template resolves the key with a
+  brush first (the hosted Fluent dictionary's own value), so a raw Color
+  arriving on the next resources change threw
+  `InvalidCastException` inside the effective-value store. The accent
+  family keeps publishing Colors (the stock values there are Colors too).
+
 ## [0.1.2] - 2026-11-11
 
 - The derived Fluent system keys (T-150): ThemeManager now publishes the
