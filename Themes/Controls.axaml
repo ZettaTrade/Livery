@@ -1,6 +1,7 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="using:Livery.Localization"
+        xmlns:converters="using:Avalonia.Data.Converters"
         xmlns:livery="using:Livery.Controls">
 
     <!--
@@ -115,7 +116,8 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid RowDefinitions="Auto,*" Background="{TemplateBinding Background}">
-                    <livery:TitleBar Grid.Row="0" />
+                    <livery:TitleBar Grid.Row="0"
+                                     Logo="{Binding Path=(livery:WindowChrome.Logo), RelativeSource={RelativeSource TemplatedParent}}" />
                     <ContentPresenter Name="PART_ContentPresenter"
                                       Grid.Row="1"
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -134,7 +136,9 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid RowDefinitions="Auto,*" Background="{TemplateBinding Background}">
-                    <livery:TitleBar Grid.Row="0" ShowMinimizeButton="False" ShowMaximizeButton="False" />
+                    <livery:TitleBar Grid.Row="0"
+                                     ShowMinimizeButton="False" ShowMaximizeButton="False"
+                                     Logo="{Binding Path=(livery:WindowChrome.Logo), RelativeSource={RelativeSource TemplatedParent}}" />
                     <ContentPresenter Name="PART_ContentPresenter"
                                       Grid.Row="1"
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -156,13 +160,28 @@
                 <Border Name="PART_Root"
                         Height="32"
                         Background="{DynamicResource TitleBar}">
-                    <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                    <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto">
+
+                        <!-- The optional logo slot (the host window's
+                             livery:WindowChrome.Logo): any control the app
+                             passes, presented hit-invisible at the strip's
+                             left edge — presses land on the shared drag
+                             surface, the strip's contract survives the mark.
+                             Null hides the slot entirely. -->
+                        <ContentPresenter Name="PART_Logo"
+                                          Grid.Column="0"
+                                          Width="16" Height="16"
+                                          Margin="10,0,0,0"
+                                          VerticalAlignment="Center"
+                                          IsHitTestVisible="False"
+                                          IsVisible="{Binding Logo, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:ObjectConverters.IsNotNull}}"
+                                          Content="{TemplateBinding Logo}" />
 
                         <!-- The title mirrors the host window's Title (the
                              control watches it), entirely hit-invisible so
                              presses land on the shared drag surface. -->
                         <TextBlock Name="PART_Title"
-                                   Grid.Column="0"
+                                   Grid.Column="1"
                                    Margin="10,0"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
@@ -176,7 +195,7 @@
                              stroke inline; the close icon rides the styles so
                              the hover can retint it. -->
                         <Button Name="PART_MinimizeButton"
-                                Grid.Column="1"
+                                Grid.Column="2"
                                 Classes="strip-icon"
                                 Width="44" Height="32"
                                 AutomationProperties.Name="{loc:Localized Chrome.Minimize}"
@@ -189,7 +208,7 @@
                         </Button>
 
                         <Button Name="PART_MaximizeButton"
-                                Grid.Column="2"
+                                Grid.Column="3"
                                 Classes="strip-icon"
                                 Width="44" Height="32"
                                 AutomationProperties.Name="{loc:Localized Chrome.Maximize}"
@@ -204,7 +223,7 @@
                         <!-- Restores the maximized window instead; one icon
                              per slot keeps each tooltip honest. -->
                         <Button Name="PART_RestoreButton"
-                                Grid.Column="2"
+                                Grid.Column="3"
                                 Classes="strip-icon"
                                 Width="44" Height="32"
                                 IsVisible="False"

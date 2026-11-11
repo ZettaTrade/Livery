@@ -66,6 +66,32 @@ public sealed class StylePins
         }
     }
 
+    /// <summary>
+    /// The optional logo slot (the WindowChrome.Logo contract): both chrome
+    /// templates wire the host window's attached property into the strip's
+    /// Logo, and the slot presents it hit-invisible — the strip keeps its
+    /// drag surface with the mark on it (the T-066 contract).
+    /// </summary>
+    [Fact]
+    public void TheLogoSlot_IsHitInvisible_AndRidesTheWindowAttachedProperty()
+    {
+        var source = ControlsThemes;
+
+        System.Text.RegularExpressions.Regex
+            .Matches(
+                source,
+                @"Logo=""\{Binding Path=\(livery:WindowChrome\.Logo\), RelativeSource=\{RelativeSource TemplatedParent\}\}""")
+            .Should().HaveCount(
+                2,
+                "both chrome variants wire the optional logo through the same attached property");
+
+        var slotPattern = @"<ContentPresenter Name=""PART_Logo""[\s\S]*?IsHitTestVisible=""False""[\s\S]*?/>";
+        System.Text.RegularExpressions.Regex
+            .IsMatch(source, slotPattern)
+            .Should().BeTrue(
+                "the logo slot never takes presses — the strip's drag zones survive the mark");
+    }
+
     [Fact]
     public void EveryTitleBarStripButton_CarriesItsAutomationName()
     {

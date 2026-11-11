@@ -73,6 +73,23 @@ public class TitleBar : TemplatedControl
         set => SetValue(ShowMaximizeButtonProperty, value);
     }
 
+    /// <summary>Identifies the <see cref="Logo"/> property.</summary>
+    public static readonly StyledProperty<object?> LogoProperty =
+        AvaloniaProperty.Register<TitleBar, object?>(nameof(Logo));
+
+    /// <summary>
+    /// The optional logomark at the strip's left edge. The chrome templates
+    /// pass the host window's <c>livery:WindowChrome.Logo</c> attached
+    /// property here (brand-neutral: the kit renders what the app passes and
+    /// never ships a mark of its own). Null hides the slot — the strip stays
+    /// exactly the drag surface it always was.
+    /// </summary>
+    public object? Logo
+    {
+        get => GetValue(LogoProperty);
+        set => SetValue(LogoProperty, value);
+    }
+
     #endregion Styled Properties
 
     #region Fields & Properties
