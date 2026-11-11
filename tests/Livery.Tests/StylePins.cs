@@ -136,6 +136,19 @@ public sealed class StylePins
         source.Should().Contain(
             "Foreground\" Value=\"{DynamicResource ChipForeground}\"",
             "the chip caption treatment carries the derived readable foreground");
+
+        // The state fills keep the palette keys the dots already speak.
+        foreach (var (selector, fill) in new[]
+                 {
+                     ("Border.chip.paper", "CandleUp"),
+                     ("Border.chip.testnet", "Highlight"),
+                     ("Border.chip.live", "Error"),
+                 })
+        {
+            source.Should().Contain(
+                $"<Style Selector=\"{selector}\">\n        <Setter Property=\"Background\" Value=\"{{DynamicResource {fill}}}\" />",
+                "the chip's {0} state keeps its palette fill key", selector);
+        }
     }
 
     [Fact]
