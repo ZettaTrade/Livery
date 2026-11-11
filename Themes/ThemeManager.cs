@@ -471,7 +471,7 @@ public sealed class ThemeManager : IThemeManager, IAsyncInitializable, IDisposab
                 ["Background"] = "#1a1a2e",
                 ["Surface"] = "#16213e",
                 ["Border"] = "#0f3460",
-                ["Accent"] = "#e94560",
+                ["Accent"] = "#2563eb",
                 ["TitleBar"] = "#14142b",
                 ["TitleBarText"] = "#ececf2",
                 ["TextPrimary"] = "#ffffff",
@@ -483,7 +483,7 @@ public sealed class ThemeManager : IThemeManager, IAsyncInitializable, IDisposab
                 ["Highlight"] = "#ffd700",
                 ["Error"] = "#ff0055"
             },
-            PreviewColors = new[] { "#1a1a2e", "#16213e", "#0f3460", "#e94560" }
+            PreviewColors = new[] { "#1a1a2e", "#16213e", "#0f3460", "#2563eb" }
         };
 
         var json = JsonSerializer.Serialize(sampleTheme, new JsonSerializerOptions { WriteIndented = true });

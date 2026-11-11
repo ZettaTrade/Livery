@@ -3,6 +3,19 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.4] - 2026-11-11
+
+- The palette role contract (T-151): `PaletteContract` documents the role
+  shape (Background/Surface/Border planar; Accent the interactive token —
+  hover fill + focus stroke; Highlight the on-state token; TextPrimary the
+  reading token; Buy/Sell the chip fills) and walks every palette through
+  the WCAG battery: the hover fill and focus stroke at 3.0:1 (WCAG 1.4.11),
+  text over the interactive fill at 4.5:1, the chip fills at 3.0:1. A
+  broken palette fails naming the exact pair; a palette that cannot read
+  its roles throws (never silently conforming). The generated sample
+  theme drops the brand-red accent for the interactive blue the shipped
+  dark baseline carries — the sample now already answers the battery.
+
 ## [0.1.3] - 2026-11-11
 
 - The brush-family publish fix (T-150, riding a real consumer scene): the
