@@ -595,6 +595,35 @@ public sealed class ThemeManager : IThemeManager, IAsyncInitializable, IDisposab
                 _logger.LogWarning(ex, "Failed to parse color {Key}={Value}", key, value);
             }
         }
+
+        PublishDerivedSystemKeys(colors);
+    }
+
+    /// <summary>
+    /// Publish the derived Fluent system keys (the stock control templates'
+    /// own families) from the freshly applied palette: a user theme recolors
+    /// the stock paths together with the palette's own roles, and theme
+    /// switches / hot-reloads retint them in the same step. The derivation
+    /// contract lives in <see cref="FluentSystemKeys"/> — all-or-nothing on
+    /// the foundation keys, so a theme the palette can't fully serve leaves
+    /// the previous theme's values in place (exactly what the palette keys
+    /// themselves do when a role is omitted).
+    /// </summary>
+    private void PublishDerivedSystemKeys(IReadOnlyDictionary<string, string> colors)
+    {
+        var derived = FluentSystemKeys.TryDerive(colors, out var failure);
+        if (derived is null)
+        {
+            _logger.LogDebug("Derived system keys skipped: {Reason}", failure);
+            return;
+        }
+
+        foreach (var (key, color) in derived)
+        {
+            Application.Current!.Resources[key] = color;
+        }
+
+        _logger.LogDebug("Published {Count} derived Fluent system keys", derived.Count);
     }
 
     #endregion Color Mapping
