@@ -373,6 +373,19 @@
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
+    <!-- The armed icon (the .on class composed over .icon): the armed
+         state reads full-bright and the glyph strokes in the armed ink —
+         the descendant rule reaches the Path content the Foreground
+         setter cannot (the strip's own glyphs carry explicit strokes),
+         and the rule rides after the .icon block so the opacity race
+         settles in the armed state's favor. -->
+    <Style Selector="Button.icon.on">
+        <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="Button.icon.on Path">
+        <Setter Property="Stroke" Value="{DynamicResource Highlight}" />
+    </Style>
+
     <!-- The info icon: the circled "i" affordance (the settings surface's
          seven Border+TextBlock copies became this control). Focusable with
          the keyboard-focus ring on the template ring (the T-110 canon:
@@ -401,5 +414,25 @@
     </Style>
     <Style Selector="livery|InfoIcon:focus /template/ Border#PART_Ring">
         <Setter Property="BorderBrush" Value="{DynamicResource Highlight}" />
+    </Style>
+
+    <!-- ============================================================== -->
+    <!-- The panel header scaffold (T-160): the heads the panels share — -->
+    <!-- the title left, the actions right (a right-docked child), ONE   -->
+    <!-- padding grammar riding the spacing scale, and the title         -->
+    <!-- treatment published once. A bare caption (no actions) or a      -->
+    <!-- tab's header text rides the title treatment alone through the   -->
+    <!-- .panel-title class. The tokens read through DynamicResource in  -->
+    <!-- the kit styles (a Styles dictionary cannot StaticResource its   -->
+    <!-- sibling dictionary) — the consumer merges Tokens.axaml above    -->
+    <!-- this include, so the values resolve at the point of use.        -->
+    <!-- ============================================================== -->
+    <Style Selector="DockPanel.panel-header">
+        <Setter Property="Margin" Value="{DynamicResource InsetS}" />
+    </Style>
+    <Style Selector="DockPanel.panel-header > TextBlock, TextBlock.panel-title">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="{DynamicResource SubtitleStrongFontSize}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 </Styles>

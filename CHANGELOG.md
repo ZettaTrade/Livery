@@ -3,6 +3,23 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.7] - 2026-11-11
+
+- The panel header scaffold (T-160): the heads the panels share live here
+  once — the `DockPanel.panel-header` composition (the title left, the
+  actions right through a right-docked child) whose padding grammar rides
+  the spacing scale's uniform inset, and the title treatment (bold, the
+  ramp's SubtitleStrong step) published for the scaffold children and for
+  bare captions and tab headers through the `TextBlock.panel-title` class.
+  The kit styles read the tokens through DynamicResource (a Styles
+  dictionary cannot StaticResource its sibling dictionary); the consumer
+  merges Tokens.axaml above this include.
+- The armed icon ink: `Button.icon.on` composes over `.icon` to read
+  full-bright with the glyph stroking in the armed Highlight — the
+  descendant rule reaches the Path content a Foreground setter cannot,
+  and both rules ride after the `.icon` block so the opacity race settles
+  in the armed state's favor.
+
 ## [0.1.6] - 2026-11-11
 
 - The type tokens (T-155): `Themes/Tokens.axaml` publishes the documented

@@ -219,6 +219,58 @@ public sealed class StylePins
             "keyboard focus lands a visible marker on the ring");
     }
 
+    [Fact]
+    public void TheChromeKit_CarriesThePanelHeaderScaffold()
+    {
+        var source = ControlsThemes;
+
+        // The scaffold: the ONE padding grammar riding the scale's uniform
+        // inset, and the title treatment published once for the heads with
+        // actions (the DockPanel's own TextBlock children) and for the bare
+        // captions and tab headers (the .panel-title class).
+        source.Should().Contain(
+            "<Style Selector=\"DockPanel.panel-header\">",
+            "the head scaffold lives in the kit, never re-typed per panel");
+        source.Should().Contain(
+            "<Style Selector=\"DockPanel.panel-header > TextBlock, TextBlock.panel-title\">",
+            "the title treatment covers both shapes — scaffold children and bare captions");
+        source.Should().Contain(
+            "Margin\" Value=\"{DynamicResource InsetS}\"",
+            "the scaffold's padding grammar rides the spacing scale, not a hand literal");
+        source.Should().Contain(
+            "FontSize\" Value=\"{DynamicResource SubtitleStrongFontSize}\"",
+            "the title rides the ramp's SubtitleStrong step, not a hand literal");
+        source.Should().Contain(
+            "FontWeight\" Value=\"Bold\"",
+            "the head titles read emphasized");
+    }
+
+    [Fact]
+    public void TheChromeKit_TheArmedIconInksItsGlyph()
+    {
+        var source = ControlsThemes;
+
+        // The armed icon (.on composed over .icon): full-bright with the
+        // glyph stroking in the armed ink — the Path content the Foreground
+        // setter cannot reach. Both rules ride AFTER the .icon block, so
+        // the last-matching-wins race settles in the armed state's favor.
+        source.Should().Contain(
+            "<Style Selector=\"Button.icon.on\">",
+            "the armed icon button's full-bright state lives in the kit");
+        source.Should().Contain(
+            "<Style Selector=\"Button.icon.on Path\">",
+            "the armed glyph ink lives in the kit — the consumer never re-types it");
+        source.Should().Contain(
+            "Stroke\" Value=\"{DynamicResource Highlight}\"",
+            "the armed ink borrows the palette's on-state accent");
+
+        var iconIndex = source.IndexOf("<Style Selector=\"Button.icon\">", StringComparison.Ordinal);
+        var armedIndex = source.IndexOf("<Style Selector=\"Button.icon.on\">", StringComparison.Ordinal);
+        armedIndex.Should().BeGreaterThan(
+            iconIndex,
+            "the armed rules must ride after the .icon block — the last matching style wins the opacity race");
+    }
+
     /// <summary>
     /// Walk up from the test's base directory to the folder carrying the
     /// Livery.csproj marker: tests and CI runs all execute inside the
