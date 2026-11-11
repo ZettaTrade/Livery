@@ -662,6 +662,17 @@ public sealed class ThemeManager : IThemeManager, IAsyncInitializable, IDisposab
         _themeChanged.Dispose();
         _loadErrorsSubject.Dispose();
         _lock.Dispose();
+
+        // A disposed instance must stop claiming process-wide initialization:
+        // every consumer resolves through the one static, and a stale pointer
+        // served subscribes and lookups from the torn-down manager forever
+        // (the T-144 test-suite poison exercised exactly that route: a
+        // probe's dispose left Instance live and every later widget attach
+        // died on the torn-down ThemeChanged subject).
+        if (ReferenceEquals(_instance, this))
+        {
+            _instance = null;
+        }
     }
 }
 
