@@ -178,9 +178,11 @@ internal static class FluentSystemKeys
     /// <summary>
     /// Linear channel blend, step <paramref name="t"/> toward
     /// <paramref name="to"/>; rounding is deterministic (away from zero) so
-    /// the pins can mirror the exact bytes.
+    /// the pins can mirror the exact bytes. Shared with the button family's
+    /// derivation (<see cref="ButtonKeys"/>) — one blend, one math, so the
+    /// two families' pins mirror the same bytes.
     /// </summary>
-    private static Color Mix(Color from, Color to, double t)
+    internal static Color Mix(Color from, Color to, double t)
     {
         static byte Blend(byte a, byte b, double step) =>
             (byte)Math.Round((a * (1.0 - step)) + (b * step), MidpointRounding.AwayFromZero);

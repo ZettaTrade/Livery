@@ -597,6 +597,7 @@ public sealed class ThemeManager : IThemeManager, IAsyncInitializable, IDisposab
         }
 
         PublishDerivedSystemKeys(colors);
+        PublishButtonKeys(colors);
     }
 
     /// <summary>
@@ -633,6 +634,34 @@ public sealed class ThemeManager : IThemeManager, IAsyncInitializable, IDisposab
         }
 
         _logger.LogDebug("Published {Count} derived Fluent system keys", derived.Count);
+    }
+
+    /// <summary>
+    /// Publish the button vocabulary's derived keys (T-183) from the freshly
+    /// applied palette: the soft-tint hover/press fills and the primary
+    /// fill's scored foreground. All family members publish as brushes (the
+    /// T-150 canon: derived keys ride brush identity, so a restyle never
+    /// tears the effectively-bound entries wide); the derivation contract
+    /// lives in <see cref="ButtonKeys"/> — all-or-nothing on Accent +
+    /// Surface, so a theme the palette can't fully serve leaves the
+    /// previous theme's values in place (exactly what the palette keys
+    /// themselves do when a role is omitted).
+    /// </summary>
+    private void PublishButtonKeys(IReadOnlyDictionary<string, string> colors)
+    {
+        var derived = ButtonKeys.TryDerive(colors, out var failure);
+        if (derived is null)
+        {
+            _logger.LogDebug("Button keys skipped: {Reason}", failure);
+            return;
+        }
+
+        foreach (var (key, color) in derived)
+        {
+            Application.Current!.Resources[key] = new Avalonia.Media.SolidColorBrush(color);
+        }
+
+        _logger.LogDebug("Published {Count} derived button keys", derived.Count);
     }
 
     #endregion Color Mapping

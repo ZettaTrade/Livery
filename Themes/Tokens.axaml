@@ -38,6 +38,18 @@
     <Thickness x:Key="InsetXl">24</Thickness>
 
     <!--
+    The corner tokens (T-183): the rounding ramp. CornerM (4) is the
+    control rounding — the button/text/combo family adopts it for one
+    consistent shape; CornerL (8) is the card rounding — the row cards and
+    the floating panels ride it. Static design constants like the rest of
+    the dictionary: consumers read them with StaticResource, the kit
+    styles through DynamicResource.
+    -->
+
+    <CornerRadius x:Key="CornerM">4</CornerRadius>
+    <CornerRadius x:Key="CornerL">8</CornerRadius>
+
+    <!--
     The numeric stack (T-155): the tabular numerals. Numeric surfaces —
     the stats tiles, the table columns, the price fields — set digits in a
     monospaced face so the columns hold their place across rows, themes and

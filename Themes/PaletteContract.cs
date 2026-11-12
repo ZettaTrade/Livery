@@ -10,14 +10,24 @@ namespace Livery.Themes;
 /// <item><c>Background</c>/<c>Surface</c>/<c>Border</c> — the planar roles:
 /// window fills, control surfaces and their separators/strokes. No
 /// contrast duty of their own; every interactive role must read over them.</item>
-/// <item><c>Accent</c> — the interactive token: the hover fill of the button
-/// and menu hosts (<c>Button:pointerover</c>, <c>MenuItem:pointerover</c>)
-/// and the focus stroke of the text hosts (<c>TextBox:focus</c>,
-/// <c>ComboBox:focus</c>). It must be visible on its surface pair and its
-/// background pair (the WCAG 1.4.11 non-text level, 3.0:1) and its own fill
-/// still carries text at 4.5:1 — an accent that fails either leg is a
-/// hover/blank state the user never sees (the dark palette shipped at
-/// ~1.4:1, the light one ~1.2:1 — the review's finding).</item>
+/// <item><c>Accent</c> — the interactive token: the menu host's hover fill
+/// (<c>MenuItem:pointerover</c>), the primary button's solid fill and the
+/// focus stroke of the text hosts (<c>TextBox:focus</c>,
+/// <c>ComboBox:focus</c>) — the generic button hover left the solid fill
+/// for the DERIVED soft tint in T-183 (the derived rows below). It must be
+/// visible on its surface pair and its background pair (the WCAG 1.4.11
+/// non-text level, 3.0:1) and its own fill still carries text at 4.5:1 —
+/// an accent that fails either leg is a hover/blank state the user never
+/// sees (the dark palette shipped at ~1.4:1, the light one ~1.2:1 — the
+/// review's finding).</item>
+/// <item>the derived button tints (<see cref="ButtonKeys"/>) — the generic
+/// button family's hover/press fills, blended from the palette's own
+/// Accent over its Surface. The soft hover is deliberately below the
+/// WCAG non-text bar (the approved variant A tint — the visibility duty
+/// rides the persistent hairline stroke, the tint is the state's color
+/// hint), so its battery leg is a state-existence floor (a tint measurably
+/// off its ground, never a no-op) plus the text legs over both tints and
+/// the primary fill's scored foreground.</item>
 /// <item><c>Highlight</c> — the on-state token: the checked decorations and
 /// the keyboard-focus tints (<c>Button:focus</c>'s border, the menu/tab
 /// focus text). Its text-bearing duty is the text-contrast battery's.</item>
@@ -30,7 +40,9 @@ namespace Livery.Themes;
 /// This shape pins the ROLE pairs, not the arbitrary color pairs — a value
 /// that retunes a role answers the battery, and a palette that ships an
 /// unusable hover, focus or chip state fails the gate naming the exact pair
-/// it broke.
+/// it broke. The derived rows join the walk when the palette serves the
+/// derivation's foundations: their roles resolve through the same merged
+/// role table, so a derived pair is named exactly like a raw one.
 /// </summary>
 public static class PaletteContract
 {
@@ -47,9 +59,20 @@ public static class PaletteContract
     public const double VisualPairMinimum = 3.0;
 
     /// <summary>
+    /// The soft-tint state floor (T-183): the derived hover tint must read
+    /// measurably off its surface ground — a no-op blend (an Accent equal
+    /// to the Surface) fails by name. Deliberately below the WCAG non-text
+    /// bar: the soft hover is a color hint over the persistent hairline
+    /// stroke, not the boundary duty the 3.0 leg guards.
+    /// </summary>
+    public const double SubtleTintStepMinimum = 1.05;
+
+    /// <summary>
     /// The role pair battery: one row per contract duty — the pair's human
     /// name (the gate names it on a break), the foreground role, the
-    /// background role it reads against, and the pair's minimum.
+    /// background role it reads against, and the pair's minimum. The raw
+    /// rows read the theme file's own roles; the derived rows (appended in
+    /// <see cref="Violations"/>) read the derivation's keys.
     /// </summary>
     private static readonly (string Name, string Foreground, string Background, double Minimum)[] Pairs =
     [
@@ -61,13 +84,30 @@ public static class PaletteContract
     ];
 
     /// <summary>
+    /// The derived button rows (T-183): the pairs the button family's
+    /// soft-tint states create, resolved through the merged role table so
+    /// the walk stays uniform. The text legs over both tints, the primary
+    /// fill's scored foreground and the hover tint's state-existence floor.
+    /// </summary>
+    private static readonly (string Name, string Foreground, string Background, double Minimum)[] DerivedPairs =
+    [
+        ("text over the button hover tint", "TextPrimary", ButtonKeys.HoverTintKey, TextPairMinimum),
+        ("text over the button pressed tint", "TextPrimary", ButtonKeys.PressedTintKey, TextPairMinimum),
+        ("the primary fill's foreground", ButtonKeys.PrimaryForegroundKey, "Accent", TextPairMinimum),
+        ("the button hover tint is a visible step over its surface", ButtonKeys.HoverTintKey, "Surface", SubtleTintStepMinimum),
+    ];
+
+    /// <summary>
     /// Walk a theme definition through the contract battery: every role pair
     /// resolves through <see cref="Contrast.Ratio"/> (an unparsable role
     /// value throws there — a corrupt palette must fail loudly, never
     /// silently read as conforming) and the return carries every broken
     /// pair, empty when the palette answers the whole contract.
     /// A missing role throws: the contract cannot read a palette that does
-    /// not carry its roles.
+    /// not carry its roles. The button derivation joins when its
+    /// foundations (Accent, Surface) read — their raw rows already throw
+    /// for a missing or unparsable value, so a palette that reaches the
+    /// derived rows always derives.
     /// </summary>
     public static IReadOnlyList<PaletteContractViolation> Violations(ThemeDefinition theme)
     {
@@ -75,11 +115,23 @@ public static class PaletteContract
         var colors = theme.Colors
             ?? throw new FormatException("the palette carries no colors at all — the role contract cannot read it");
 
-        var violations = new List<PaletteContractViolation>();
-        foreach (var (name, foregroundRole, backgroundRole, minimum) in Pairs)
+        var roles = new Dictionary<string, string>(colors, StringComparer.Ordinal);
+        var pairs = Pairs;
+        if (ButtonKeys.TryDerive(colors, out var failure) is { } derived)
         {
-            var foreground = ReadRole(colors, foregroundRole);
-            var background = ReadRole(colors, backgroundRole);
+            foreach (var (key, color) in derived)
+            {
+                roles[key] = $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+            }
+
+            pairs = [.. Pairs, .. DerivedPairs];
+        }
+
+        var violations = new List<PaletteContractViolation>();
+        foreach (var (name, foregroundRole, backgroundRole, minimum) in pairs)
+        {
+            var foreground = ReadRole(roles, foregroundRole);
+            var background = ReadRole(roles, backgroundRole);
             var ratio = Contrast.Ratio(foreground, background);
             if (ratio < minimum)
             {

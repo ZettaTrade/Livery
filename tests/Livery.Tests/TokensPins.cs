@@ -79,6 +79,19 @@ public sealed class TokensPins
     }
 
     [Fact]
+    public void TheCornerTokens_CarryTheRoundingRamp()
+    {
+        var source = TokensThemes;
+
+        source.Should().Contain(
+            "<CornerRadius x:Key=\"CornerM\">4</CornerRadius>",
+            "CornerM is the control rounding the button/text/combo family adopts");
+        source.Should().Contain(
+            "<CornerRadius x:Key=\"CornerL\">8</CornerRadius>",
+            "CornerL is the card rounding the row cards ride");
+    }
+
+    [Fact]
     public void TheTokensDictionary_ShipsInThePackage()
     {
         var csproj = File.ReadAllText(Path.Combine(RepoRoot, "Livery.csproj"))

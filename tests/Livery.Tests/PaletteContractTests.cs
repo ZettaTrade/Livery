@@ -81,6 +81,26 @@ public sealed class PaletteContractTests
     }
 
     [Fact]
+    public void AButtonTintNoOp_NamesTheStepRow()
+    {
+        // The T-183 derived row: an Accent equal to the Surface blends a
+        // no-op hover tint — the state-existence floor fails by name, so a
+        // palette whose hover vanishes into its ground cannot sneak
+        // through the gate.
+        var noOp = new Dictionary<string, string>(Healthy)
+        {
+            ["Accent"] = "#161b22",
+        };
+
+        var violations = PaletteContract.Violations(new ThemeDefinition { Colors = noOp });
+
+        var step = violations.Should().ContainSingle(
+            v => v.Pair == "the button hover tint is a visible step over its surface").Which;
+        step.Ratio.Should().BeLessThan(PaletteContract.SubtleTintStepMinimum);
+        step.Minimum.Should().Be(PaletteContract.SubtleTintStepMinimum);
+    }
+
+    [Fact]
     public void AMissingRole_ThrowsLoudly()
     {
         var holey = new Dictionary<string, string>(Healthy);

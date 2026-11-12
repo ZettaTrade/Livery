@@ -11,7 +11,7 @@
     <!-- NuGet packaging (GitHub Packages feed; a later nuget.org move only
          changes the push target - the consumer PackageReference stays). -->
     <PackageId>Livery</PackageId>
-    <Version>0.1.10</Version>
+    <Version>0.1.11</Version>
     <Authors>ZettaTrade Contributors</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ZettaTrade/Livery.git</RepositoryUrl>
@@ -37,6 +37,7 @@
          <ResourceInclude Source="avares://Livery/Themes/Tokens.axaml" />. -->
     <AvaloniaResource Include="Themes\Tokens.axaml" />
     <InternalsVisibleTo Include="ZettaTrade.UI.Tests" />
+    <InternalsVisibleTo Include="Livery.Tests" />
     <PackageReference Include="Avalonia" Version="12.1.4" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.14" />
     <PackageReference Include="System.Reactive" Version="7.0.0" />

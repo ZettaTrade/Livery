@@ -3,6 +3,31 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.11] - 2026-11-12
+
+- The button kit (T-183): the generic button family goes quiet — the
+  resting button is transparent over its hairline Border stroke, the
+  pointer answers with the soft Accent tint the theme derivation
+  publishes (`ButtonHoverTint`, a 12% Accent step over the theme's own
+  Surface; pressed `ButtonPressedTint` at 22%) instead of the solid
+  Accent flash. The derivation (`ButtonKeys`, the T-150
+  publishes-as-brush canon) also scores the primary fill's readable
+  foreground (`PrimaryForeground`, black vs white — against any fill at
+  least one achromatic candidate clears 4.5:1, the T-152 shape); the
+  `.primary` class marks the ONE main action per window (solid Accent,
+  the scored ink, the emphasis ring on hover, the strip's dim step on
+  press — the fill never leaves) and the `.quiet` class carries a Button
+  whose chrome lives in its child card (the toast-row shape — chrome-free
+  at every state, so the chrome never renders twice).
+- The corner tokens: `CornerM` (4, the control rounding the
+  button/text/combo family adopts) and `CornerL` (8, the card rounding the
+  row cards ride) join the dictionary.
+- The role contract battery (T-151) grew the derived rows: the text legs
+  over both tints, the primary fill's scored foreground and the hover
+  tint's state-existence floor (`SubtleTintStepMinimum` — a no-op blend
+  fails by name, the soft tint deliberately sits below the WCAG non-text
+  bar while the hairline stroke carries the boundary duty).
+
 ## [0.1.7] - 2026-11-11
 
 - The panel header scaffold (T-160): the heads the panels share live here

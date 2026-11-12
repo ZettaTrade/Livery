@@ -330,6 +330,124 @@ public sealed class StylePins
             "the armed rules must ride after the .icon block — the last matching style wins the opacity race");
     }
 
+    // ============================================================
+    // The button kit (T-183): the quiet family, the derived soft-tint
+    // states, the primary action and the quiet carrier — the source
+    // pins hold the vocabulary the consumer windows adopt.
+    // ============================================================
+
+    [Fact]
+    public void TheButtonFamily_RidesTheDerivedSoftTintStates()
+    {
+        var source = ControlsThemes;
+
+        // The resting button: transparent over the hairline stroke — the
+        // quiet default the kit's vocabulary assumes. The rounding rides
+        // the corner token.
+        source.Should().Contain(
+            "<Style Selector=\"Button\">\n        <Setter Property=\"Background\" Value=\"Transparent\" />",
+            "the resting button is quiet chrome, never a Surface slab");
+        System.Text.RegularExpressions.Regex
+            .Matches(
+                source,
+                System.Text.RegularExpressions.Regex.Escape(
+                    "<Setter Property=\"CornerRadius\" Value=\"{DynamicResource CornerM}\" />"))
+            .Should().HaveCount(
+                3,
+                "the button/text/combo family all ride the corner token");
+
+        // The states answer with the derived tints — never the solid
+        // Accent flash (the offender the task retires).
+        source.Should().Contain(
+            "<Style Selector=\"Button:pointerover\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource ButtonHoverTint}\" />",
+            "the hover fills with the derived soft tint");
+        source.Should().Contain(
+            "<Style Selector=\"Button:pressed\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource ButtonPressedTint}\" />",
+            "the press answers with the stronger tint step");
+        source.Should().NotContain(
+            "<Style Selector=\"Button:pointerover\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource Accent}\" />",
+            "no button flashes a solid Accent fill on hover");
+    }
+
+    [Fact]
+    public void ThePrimaryClass_IsTheSolidAccentFillWithTheScoredForeground()
+    {
+        var source = ControlsThemes;
+
+        source.Should().Contain(
+            "<Style Selector=\"Button.primary\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource Accent}\" />",
+            "the primary fills solid Accent");
+        source.Should().Contain(
+            "<Setter Property=\"Foreground\" Value=\"{DynamicResource PrimaryForeground}\" />",
+            "the primary's ink is the derivation's scored readable foreground");
+        source.Should().Contain(
+            "<Style Selector=\"Button.primary:pointerover\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource Accent}\" />",
+            "the hover holds the fill — a scored pair stays the rendered pair");
+        source.Should().Contain(
+            "<Style Selector=\"Button.primary:pressed\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource Accent}\" />",
+            "the press holds the fill too");
+        source.Should().Contain(
+            "<Setter Property=\"Opacity\" Value=\"0.8\" />",
+            "the press rides the strip's dim step");
+
+        // The emphasis ring answers the hover (the row grammar's own
+        // hover language), never a recolor.
+        var hoverBlock = source[source.IndexOf(
+            "<Style Selector=\"Button.primary:pointerover\">", StringComparison.Ordinal)..];
+        hoverBlock.Should().Contain(
+            "<Setter Property=\"BorderBrush\" Value=\"{DynamicResource Highlight}\" />",
+            "the primary's hover rides the emphasis ring");
+    }
+
+    [Fact]
+    public void TheQuietClass_IsChromeFreeAtEveryState()
+    {
+        var source = ControlsThemes;
+
+        foreach (var selector in new[]
+                 {
+                     "<Style Selector=\"Button.quiet\">",
+                     "<Style Selector=\"Button.quiet /template/ ContentPresenter#PART_ContentPresenter\">",
+                     "<Style Selector=\"Button.quiet:pointerover\">",
+                     "<Style Selector=\"Button.quiet:pointerover /template/ ContentPresenter#PART_ContentPresenter\">",
+                     "<Style Selector=\"Button.quiet:pressed\">",
+                     "<Style Selector=\"Button.quiet:pressed /template/ ContentPresenter#PART_ContentPresenter\">",
+                     "<Style Selector=\"Button.quiet:focus /template/ ContentPresenter#PART_ContentPresenter\">",
+                 })
+        {
+            source.Should().Contain(
+                selector,
+                "the quiet carrier suppresses the button chrome at every state — the child card owns it");
+        }
+
+        var quiet = source[source.IndexOf("<Style Selector=\"Button.quiet\">", StringComparison.Ordinal)..];
+        quiet.Should().Contain(
+            "<Setter Property=\"BorderThickness\" Value=\"0\" />",
+            "the quiet button carries no stroke of its own");
+    }
+
+    [Fact]
+    public void TheTextHosts_RideTheCornerToken()
+    {
+        var source = ControlsThemes;
+
+        foreach (var selector in new[] { "TextBox", "ComboBox" })
+        {
+            source.Should().Contain(
+                $"<Style Selector=\"{selector}\">",
+                "the {0} family carries its restyling block", selector);
+        }
+
+        System.Text.RegularExpressions.Regex
+            .Matches(
+                source,
+                System.Text.RegularExpressions.Regex.Escape(
+                    "<Setter Property=\"CornerRadius\" Value=\"{DynamicResource CornerM}\" />"))
+            .Should().HaveCount(
+                3,
+                "the button/text/combo rounding rides the corner token — one consistent shape, never a hand literal");
+    }
+
     /// <summary>
     /// Walk up from the test's base directory to the folder carrying the
     /// Livery.csproj marker: tests and CI runs all execute inside the

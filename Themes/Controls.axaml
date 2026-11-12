@@ -21,17 +21,28 @@
     <!-- Shell control restyling: the palette colors every stock surface -->
     <!-- ============================================================== -->
 
+    <!-- The button family (T-183): quiet by default — the resting button is
+         transparent over its hairline Border stroke, the pointer answers
+         with the soft Accent tint the theme derivation publishes
+         (ButtonHoverTint, a 12% step over the theme's own Surface — never
+         the solid Accent flash), the press a stronger step of the same
+         tint. The rounding rides the CornerM token, so the whole
+         button/text/combo family keeps one consistent shape. The emphasis
+         vocabulary lives in the kit below: the .primary class marks the
+         ONE main action per window (solid Accent + the scored readable
+         foreground), the .quiet class carries a Button whose chrome lives
+         in its child card. -->
     <Style Selector="Button">
-        <Setter Property="Background" Value="{DynamicResource Surface}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CornerM}" />
     </Style>
     <Style Selector="Button:pointerover">
-        <Setter Property="Background" Value="{DynamicResource Accent}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
+        <Setter Property="Background" Value="{DynamicResource ButtonHoverTint}" />
     </Style>
     <Style Selector="Button:pressed">
-        <Setter Property="Background" Value="{DynamicResource Border}" />
+        <Setter Property="Background" Value="{DynamicResource ButtonPressedTint}" />
     </Style>
 
     <!-- Keyboard focus indicators (T-110): every focusable control shows a
@@ -50,6 +61,7 @@
         <Setter Property="Background" Value="{DynamicResource Surface}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CornerM}" />
     </Style>
     <Style Selector="TextBox:focus">
         <Setter Property="BorderBrush" Value="{DynamicResource Accent}" />
@@ -59,6 +71,7 @@
         <Setter Property="Background" Value="{DynamicResource Surface}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CornerM}" />
     </Style>
     <Style Selector="ComboBox:focus">
         <Setter Property="BorderBrush" Value="{DynamicResource Accent}" />
@@ -403,6 +416,63 @@
     </Style>
     <Style Selector="Button.icon.on Path">
         <Setter Property="Stroke" Value="{DynamicResource Highlight}" />
+    </Style>
+
+    <!-- The primary action (T-183): the ONE main action per window fills
+         solid Accent and reads through the derivation's scored foreground
+         (PrimaryForeground — the black-vs-white argmax the chip
+         foreground's scoring rides). The fill never leaves under the
+         pointer (a scored pair stays the rendered pair, the T-181
+         discipline): the hover answers with the emphasis ring (the row
+         grammar's own hover language), the press with the strip's dim
+         step — both hold the fill explicitly, so the generic state fills
+         never reach a primary. -->
+    <Style Selector="Button.primary">
+        <Setter Property="Background" Value="{DynamicResource Accent}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryForeground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Accent}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="Button.primary:pointerover">
+        <Setter Property="Background" Value="{DynamicResource Accent}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Highlight}" />
+    </Style>
+    <Style Selector="Button.primary:pressed">
+        <Setter Property="Background" Value="{DynamicResource Accent}" />
+        <Setter Property="Opacity" Value="0.8" />
+    </Style>
+
+    <!-- The quiet carrier (T-183): a Button whose chrome lives in its
+         child card (the toast rows' Button-wrapping-a-Border shape) — the
+         button itself is chrome-free at EVERY state (the strip-icon
+         presenter mechanism), so the chrome never renders twice and the
+         hover never leaks around the card's corners. The card owns its
+         own states in the consumer's styles: the window styles beat the
+         kit's, so the card's hover/press/focus lanes live beside its rest
+         fill, and the keyboard focus ring lands on the card the same way
+         (the T-110 marker the chrome-free button cannot draw itself). -->
+    <Style Selector="Button.quiet">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="Button.quiet /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.quiet:pointerover">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.quiet:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.quiet:pressed">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.quiet:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.quiet:focus /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
     </Style>
 
     <!-- The info icon: the circled "i" affordance (the settings surface's
