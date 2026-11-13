@@ -20,7 +20,16 @@ using Avalonia.Media;
 /// guarantee the chip foreground's scoring rides). The derivation is
 /// intentionally bounded and formula-pure: the WCAG quality of the shipped
 /// palette values is the theme contract's own lane (the battery scores the
-/// derived pairs), not this compiler's.
+/// derived pairs), not this compiler's — with the surface family's one
+/// contractual exception: the hairline and the raised well derive from the
+/// Surface alone (a value the theme author tunes freely), so their steps
+/// GUARANTEE the contract's soft-tint floor
+/// (<see cref="PaletteContract.SubtleTintStepMinimum"/>): a ground that
+/// leaves the requested step short raises it by the floor grain until the
+/// step reads (the oled palette's #0a0a0a ground left the 3% well one grain
+/// short). The hover/press tints keep the request-pure shape: they derive
+/// from the Accent, the theme's own interactive color, so a no-op blend
+/// fails the battery by name — the palette must ship a usable Accent.
 /// The surface-family keys (T-223) blend from the Surface alone: the
 /// resting control's boundary stroke (<see cref="HairlineKey"/> — the
 /// plain <c>Border</c> role vanishes against the very cards and strips a
@@ -29,7 +38,8 @@ using Avalonia.Media;
 /// hosts ride the approved variant A's raised-well look). Both lift toward
 /// the surface's contrast pole, chosen by the surface's own luminance: a
 /// dark theme's stroke brightens, a light theme's darkens — the step must
-/// read AGAINST the plane it sits on, whatever the variant.
+/// read AGAINST the plane it sits on, whatever the variant, and the floor
+/// walk keeps that promise on the extreme grounds.
 /// The derivation is all-or-nothing on Accent + Surface: a palette missing
 /// (or mistyping) one derives NOTHING and the previous values persist —
 /// exactly what the palette keys themselves do when a theme file omits a
@@ -66,11 +76,27 @@ internal static class ButtonKeys
     /// <summary>The stronger press step: Accent blended 22% over the Surface.</summary>
     public const double PressedStep = 0.22;
 
-    /// <summary>The hairline step: the Surface lifted 7% toward its contrast pole.</summary>
+    /// <summary>
+    /// The hairline's requested step: the Surface lifted 7% toward its
+    /// contrast pole — the floor walk raises it only when the ground leaves
+    /// the pair short of the contract floor.
+    /// </summary>
     public const double HairlineStep = 0.07;
 
-    /// <summary>The raised-well step: the Surface lifted 3% toward its contrast pole.</summary>
+    /// <summary>
+    /// The raised well's requested step: the Surface lifted 3% toward its
+    /// contrast pole — the floor walk raises it only when the ground leaves
+    /// the pair short of the contract floor.
+    /// </summary>
     public const double RaisedStep = 0.03;
+
+    /// <summary>
+    /// The floor walk's grain: the surface-family steps raise by 0.5% per
+    /// pass until the blended pair clears the contract floor — the smallest
+    /// lift the guarantee ever ships (one grain moved the oled well from
+    /// 0.03 to 0.035).
+    /// </summary>
+    internal const double FloorGrain = 0.005;
 
     /// <summary>The scored foreground candidates, in argmax tie order (black first keeps a tie deterministic).</summary>
     private static readonly string[] ForegroundCandidates = ["#000000", "#ffffff"];
@@ -102,9 +128,32 @@ internal static class ButtonKeys
             [HoverTintKey] = FluentSystemKeys.Mix(surface, accent, HoverStep),
             [PressedTintKey] = FluentSystemKeys.Mix(surface, accent, PressedStep),
             [PrimaryForegroundKey] = Color.Parse(ChooseForeground(accent)),
-            [HairlineKey] = FluentSystemKeys.Mix(surface, pole, HairlineStep),
-            [RaisedKey] = FluentSystemKeys.Mix(surface, pole, RaisedStep),
+            [HairlineKey] = BlendWithFloor(surface, pole, HairlineStep, PaletteContract.SubtleTintStepMinimum),
+            [RaisedKey] = BlendWithFloor(surface, pole, RaisedStep, PaletteContract.SubtleTintStepMinimum),
         };
+    }
+
+    /// <summary>
+    /// Blend <paramref name="from"/> → <paramref name="to"/> at the requested
+    /// step, then raise the step by <see cref="FloorGrain"/> while the blended
+    /// color's ratio over its ground sits below the floor: the request stays
+    /// the answer whenever it already clears the floor (the pinned bytes
+    /// hold), and the guarantee costs the minimum lift otherwise — the walk
+    /// stops at the first clearing step, deterministically. The contrast pole
+    /// clears the floor over any ground, so the walk terminates.
+    /// </summary>
+    private static Color BlendWithFloor(Color from, Color to, double step, double floor)
+    {
+        var blended = FluentSystemKeys.Mix(from, to, step);
+        var ground = Format(from);
+
+        while (step < 1.0 && Contrast.Ratio(Format(blended), ground) < floor)
+        {
+            step += FloorGrain;
+            blended = FluentSystemKeys.Mix(from, to, step);
+        }
+
+        return blended;
     }
 
     /// <summary>

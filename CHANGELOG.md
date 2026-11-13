@@ -3,6 +3,19 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.13] - 2026-11-14
+
+- The surface-family steps guarantee the contract floor (T-223): the shipped
+  oled palette's #0a0a0a ground left the 3% raised well one grain short of
+  the battery's 1.05 floor (#111111 over #0a0a0a, 1.0485) — a fixed step
+  cannot promise visibility on the extreme palettes. The derivation's floor
+  walk now raises the hairline's and the well's blend step by the 0.5% grain
+  until the pair clears `SubtleTintStepMinimum`: the oled well lands at
+  #131313, the shipped dark, midnight and light palettes' bytes stay exactly
+  as pinned (their requests already clear), and the hover/press tints stay
+  request-pure (the Accent is the theme's own interactive color — a no-op
+  blend still fails the battery by name).
+
 ## [0.1.12] - 2026-11-14
 
 - The control hairline and the raised wells (T-223): the derivation grows

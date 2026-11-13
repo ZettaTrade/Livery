@@ -13,7 +13,9 @@ using Xunit;
 /// exact blended bytes mirror the shared blend's deterministic rounding,
 /// the scored foreground always serves a readable pair over the primary
 /// fill, and the all-or-nothing contract refuses a palette that cannot
-/// serve both foundations.
+/// serve both foundations — and the surface-family steps guarantee the
+/// contract floor on the extreme grounds (the 0.5% grain walk, the oled
+/// catch).
 /// </summary>
 public sealed class ButtonKeysTests
 {
@@ -86,6 +88,66 @@ public sealed class ButtonKeysTests
         derived.Should().NotBeNull();
         derived![ButtonKeys.HairlineKey].Should().Be(Avalonia.Media.Color.Parse("#e2e3e5"));
         derived[ButtonKeys.RaisedKey].Should().Be(Avalonia.Media.Color.Parse("#ecedef"));
+    }
+
+    [Theory]
+    [InlineData("#000000")] // the true black ground: the pole is the only lift left
+    [InlineData("#0a0a0a")] // the shipped oled palette's ground (the gate's catch)
+    [InlineData("#ffffff")] // the true white ground: the light extreme
+    public void TheExtremeGrounds_StillServeTheSurfaceFamilyFloors(string surface)
+    {
+        // The floor guarantee (T-223): a fixed step cannot promise visibility
+        // on the extreme palettes — the shipped oled ground left the 3% well
+        // one grain short of the contract floor (1.0485 < 1.05). The
+        // derivation's floor walk raises the step until the pair clears, so
+        // even the true black and white grounds ship a visible step.
+        var derived = ButtonKeys.TryDerive(Palette("#1f6feb", surface), out _);
+
+        derived.Should().NotBeNull();
+        foreach (var key in new[] { ButtonKeys.HairlineKey, ButtonKeys.RaisedKey })
+        {
+            var lifted = derived![key];
+            var ratio = Contrast.Ratio(
+                $"#{lifted.R:X2}{lifted.G:X2}{lifted.B:X2}",
+                surface);
+
+            ratio.Should().BeGreaterThanOrEqualTo(
+                PaletteContract.SubtleTintStepMinimum,
+                "the {0} step over {1} clears the contract floor — the derivation guarantees it", key, surface);
+        }
+    }
+
+    [Fact]
+    public void TheOledGround_RidesTheWalksFirstGrain()
+    {
+        // The gate's catch: the oled palette's #0a0a0a ground left the 3%
+        // well one grain short (#111111, 1.0485 < 1.05) — the walk's first
+        // pass (0.035) is the answer, the smallest lift the guarantee ever
+        // ships. The hairline's 7% request already clears over the same
+        // ground, so the walk never touches it.
+        ButtonKeys.FloorGrain.Should().Be(0.005, "the walk's grain is the minimum lift the guarantee ever ships");
+
+        var derived = ButtonKeys.TryDerive(Palette("#1f6feb", "#0a0a0a"), out _);
+
+        derived.Should().NotBeNull();
+        derived![ButtonKeys.RaisedKey].Should().Be(Avalonia.Media.Color.Parse("#131313"));
+        derived[ButtonKeys.HairlineKey].Should().Be(
+            Avalonia.Media.Color.Parse("#1b1b1b"),
+            "the 7% request clears the floor over #0a0a0a, so the walk leaves it at the request");
+    }
+
+    [Fact]
+    public void TheTrueBlackGround_LiftsTheWellTheMinimumStep()
+    {
+        // The black hole: no darker ground exists and the pole is the only
+        // lift left — the well's 3% request lands #080808 (1.0486 < 1.05)
+        // and the walk's first grain raises it to #090909; the hairline's
+        // 7% request clears untouched.
+        var derived = ButtonKeys.TryDerive(Palette("#1f6feb", "#000000"), out _);
+
+        derived.Should().NotBeNull();
+        derived![ButtonKeys.RaisedKey].Should().Be(Avalonia.Media.Color.Parse("#090909"));
+        derived[ButtonKeys.HairlineKey].Should().Be(Avalonia.Media.Color.Parse("#121212"));
     }
 
     [Fact]

@@ -95,6 +95,14 @@ public static class PaletteContract
     /// measurably off their surface ground — a no-op blend fails by name;
     /// the hairline stroke carries the resting boundary duty, the tints
     /// are the states' color hints).
+    /// The two surface-family floors (the well's and the hairline's) are
+    /// the derivation's own guarantee, not the palette's duty: those keys
+    /// derive from the Surface alone (a value the theme author tunes
+    /// freely), so the derivation's floor walk raises the step until the
+    /// pair clears (<see cref="ButtonKeys"/>) — these rows serve as the
+    /// regression net over the shipped themes. The tint's floor stays the
+    /// palette's duty: the Accent is the theme's own interactive color, so
+    /// a no-op hover blend fails by name.
     /// </summary>
     private static readonly (string Name, string Foreground, string Background, double Minimum)[] DerivedPairs =
     [
