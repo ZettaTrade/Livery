@@ -3,6 +3,23 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.12] - 2026-11-14
+
+- The control hairline and the raised wells (T-223): the derivation grows
+  two Surface-family keys — `ControlHairline`, the resting button's
+  boundary stroke (the plain `Border` role vanishes against the very cards
+  and strips a button sits on — the stroke derives its own visible step),
+  and `SurfaceHigh`, the input hosts' raised well fill (the combo/textbox
+  wells no longer melt into the card plane). Both blend off the theme's
+  own Surface toward its luminance pole (the stroke 7%, the well 3% — a
+  dark theme's stroke brightens, a light theme's darkens); the shipped
+  dark palette lands at #2a2a3d / #212134, the approved variant A's
+  hand-picked `--hairline` / combo-well read.
+- The kit's restyling follows: `Button`'s stroke and the text hosts'
+  fill + stroke ride the new keys; the role-contract battery grows the
+  pairs (the wells' text leg at 4.5:1 and the state-existence floors for
+  the well and the hairline step).
+
 ## [0.1.11] - 2026-11-12
 
 - The button kit (T-183): the generic button family goes quiet — the

@@ -341,12 +341,16 @@ public sealed class StylePins
     {
         var source = ControlsThemes;
 
-        // The resting button: transparent over the hairline stroke — the
-        // quiet default the kit's vocabulary assumes. The rounding rides
-        // the corner token.
+        // The resting button: transparent over the derived hairline stroke
+        // — the quiet default the kit's vocabulary assumes; the stroke
+        // rides its own key (the plain Border role vanishes against the
+        // cards the button sits on). The rounding rides the corner token.
         source.Should().Contain(
             "<Style Selector=\"Button\">\n        <Setter Property=\"Background\" Value=\"Transparent\" />",
             "the resting button is quiet chrome, never a Surface slab");
+        source.Should().Contain(
+            "<Setter Property=\"Background\" Value=\"Transparent\" />\n        <Setter Property=\"BorderBrush\" Value=\"{DynamicResource ControlHairline}\" />",
+            "the resting stroke rides the derived hairline step");
         System.Text.RegularExpressions.Regex
             .Matches(
                 source,
@@ -436,6 +440,12 @@ public sealed class StylePins
             source.Should().Contain(
                 $"<Style Selector=\"{selector}\">",
                 "the {0} family carries its restyling block", selector);
+            source.Should().Contain(
+                $"<Style Selector=\"{selector}\">\n        <Setter Property=\"Background\" Value=\"{{DynamicResource SurfaceHigh}}\" />",
+                "the {0} host fills the derived raised well — a second flat Surface melts into the card plane (T-223)", selector);
+            source.Should().Contain(
+                $"<Setter Property=\"Background\" Value=\"{{DynamicResource SurfaceHigh}}\" />\n        <Setter Property=\"BorderBrush\" Value=\"{{DynamicResource ControlHairline}}\" />",
+                "the {0} host's stroke rides the derived hairline step (T-223)", selector);
         }
 
         System.Text.RegularExpressions.Regex

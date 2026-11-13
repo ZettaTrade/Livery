@@ -6,21 +6,30 @@ using System.Linq;
 using Avalonia.Media;
 
 /// <summary>
-/// The button vocabulary's derived keys (T-183): the soft-tint hover and
-/// press fills and the primary fill's readable foreground, derived from the
-/// applied palette — the T-150 publishes-as-brush canon, the T-152
-/// scored-foreground shape. The resting button is transparent over its
-/// hairline stroke; hover fills with the Accent blended one soft step over
-/// the theme's own Surface (12%), pressed a stronger step (22%) — the
-/// approved variant A shape: the pointer answers with a tint, never the
-/// solid Accent flash. The <c>.primary</c> class fills solid Accent and
-/// reads through a scored achromatic foreground (black vs white, the
-/// better pair wins — against any single fill at least one candidate
-/// clears the WCAG 4.5:1 bar, the same guarantee the chip foreground's
-/// scoring rides). The derivation is intentionally bounded and
-/// formula-pure: the WCAG quality of the shipped palette values is the
-/// theme contract's own lane (the battery scores the derived pairs), not
-/// this compiler's.
+/// The control vocabulary's derived keys (T-183, the surface-family
+/// extension T-223): the soft-tint hover and press fills and the primary
+/// fill's readable foreground, derived from the applied palette — the T-150
+/// publishes-as-brush canon, the T-152 scored-foreground shape. The resting
+/// button is transparent over its hairline stroke; hover fills with the
+/// Accent blended one soft step over the theme's own Surface (12%), pressed
+/// a stronger step (22%) — the approved variant A shape: the pointer
+/// answers with a tint, never the solid Accent flash. The <c>.primary</c>
+/// class fills solid Accent and reads through a scored achromatic
+/// foreground (black vs white, the better pair wins — against any single
+/// fill at least one candidate clears the WCAG 4.5:1 bar, the same
+/// guarantee the chip foreground's scoring rides). The derivation is
+/// intentionally bounded and formula-pure: the WCAG quality of the shipped
+/// palette values is the theme contract's own lane (the battery scores the
+/// derived pairs), not this compiler's.
+/// The surface-family keys (T-223) blend from the Surface alone: the
+/// resting control's boundary stroke (<see cref="HairlineKey"/> — the
+/// plain <c>Border</c> role vanishes against the very cards and strips a
+/// button sits on, so the stroke derives its own visible step) and the
+/// input wells' raised fill (<see cref="RaisedKey"/> — the combo/textbox
+/// hosts ride the approved variant A's raised-well look). Both lift toward
+/// the surface's contrast pole, chosen by the surface's own luminance: a
+/// dark theme's stroke brightens, a light theme's darkens — the step must
+/// read AGAINST the plane it sits on, whatever the variant.
 /// The derivation is all-or-nothing on Accent + Surface: a palette missing
 /// (or mistyping) one derives NOTHING and the previous values persist —
 /// exactly what the palette keys themselves do when a theme file omits a
@@ -39,10 +48,16 @@ internal static class ButtonKeys
     /// <summary>The resource key of the primary fill's scored readable foreground.</summary>
     public const string PrimaryForegroundKey = "PrimaryForeground";
 
+    /// <summary>The resource key of the resting control's boundary stroke (the Surface lifted one hairline step).</summary>
+    public const string HairlineKey = "ControlHairline";
+
+    /// <summary>The resource key of the input hosts' raised well fill (the Surface lifted one raised step).</summary>
+    public const string RaisedKey = "SurfaceHigh";
+
     /// <summary>The palette role the tints blend toward and the primary scores against.</summary>
     public const string AccentPaletteKey = "Accent";
 
-    /// <summary>The palette role the tints step away from.</summary>
+    /// <summary>The palette role the tints step away from and the surface-family keys derive from.</summary>
     public const string SurfacePaletteKey = "Surface";
 
     /// <summary>The soft hover step: Accent blended 12% over the Surface (the approved variant A tint).</summary>
@@ -51,11 +66,21 @@ internal static class ButtonKeys
     /// <summary>The stronger press step: Accent blended 22% over the Surface.</summary>
     public const double PressedStep = 0.22;
 
+    /// <summary>The hairline step: the Surface lifted 7% toward its contrast pole.</summary>
+    public const double HairlineStep = 0.07;
+
+    /// <summary>The raised-well step: the Surface lifted 3% toward its contrast pole.</summary>
+    public const double RaisedStep = 0.03;
+
     /// <summary>The scored foreground candidates, in argmax tie order (black first keeps a tie deterministic).</summary>
     private static readonly string[] ForegroundCandidates = ["#000000", "#ffffff"];
 
+    /// <summary>The contrast poles the surface-family steps blend toward (the sRGB extremes).</summary>
+    private static readonly Color PoleLight = Color.Parse("#ffffff");
+    private static readonly Color PoleDark = Color.Parse("#000000");
+
     /// <summary>
-    /// Derive the button family from a theme palette. Returns the full
+    /// Derive the control family from a theme palette. Returns the full
     /// family (never a subset) when both foundation keys read, and null
     /// with a diagnostic when one is missing or unparsable.
     /// </summary>
@@ -71,13 +96,26 @@ internal static class ButtonKeys
             return null;
         }
 
+        var pole = SurfaceIsDark(surface) ? PoleLight : PoleDark;
         return new Dictionary<string, Color>
         {
             [HoverTintKey] = FluentSystemKeys.Mix(surface, accent, HoverStep),
             [PressedTintKey] = FluentSystemKeys.Mix(surface, accent, PressedStep),
             [PrimaryForegroundKey] = Color.Parse(ChooseForeground(accent)),
+            [HairlineKey] = FluentSystemKeys.Mix(surface, pole, HairlineStep),
+            [RaisedKey] = FluentSystemKeys.Mix(surface, pole, RaisedStep),
         };
     }
+
+    /// <summary>
+    /// The surface's own darkness, by the sRGB-byte luminance weights: the
+    /// surface-family steps lift a dark surface toward white and sink a
+    /// light one toward black. The byte-weight approximation serves the
+    /// pole branch only — the scored pairs' WCAG quality stays the
+    /// contract battery's own lane.
+    /// </summary>
+    private static bool SurfaceIsDark(Color surface) =>
+        ((0.2126 * surface.R) + (0.7152 * surface.G) + (0.0722 * surface.B)) / 255.0 < 0.5;
 
     private static bool TryReadFoundation(
         IReadOnlyDictionary<string, string> palette,

@@ -21,20 +21,23 @@
     <!-- Shell control restyling: the palette colors every stock surface -->
     <!-- ============================================================== -->
 
-    <!-- The button family (T-183): quiet by default — the resting button is
-         transparent over its hairline Border stroke, the pointer answers
-         with the soft Accent tint the theme derivation publishes
-         (ButtonHoverTint, a 12% step over the theme's own Surface — never
-         the solid Accent flash), the press a stronger step of the same
-         tint. The rounding rides the CornerM token, so the whole
-         button/text/combo family keeps one consistent shape. The emphasis
-         vocabulary lives in the kit below: the .primary class marks the
-         ONE main action per window (solid Accent + the scored readable
-         foreground), the .quiet class carries a Button whose chrome lives
-         in its child card. -->
+    <!-- The button family (T-183, the surface-family stroke T-223): quiet
+         by default — the resting button is transparent over its
+         ControlHairline stroke (the derived step off the theme's own
+         Surface: the plain Border role vanishes against the very cards and
+         strips the buttons sit on, the stroke must read against ITS
+         ground), the pointer answers with the soft Accent tint the theme
+         derivation publishes (ButtonHoverTint, a 12% step over the theme's
+         own Surface — never the solid Accent flash), the press a stronger
+         step of the same tint. The rounding rides the CornerM token, so
+         the whole button/text/combo family keeps one consistent shape. The
+         emphasis vocabulary lives in the kit below: the .primary class
+         marks the ONE main action per window (solid Accent + the scored
+         readable foreground), the .quiet class carries a Button whose
+         chrome lives in its child card. -->
     <Style Selector="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlHairline}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
         <Setter Property="CornerRadius" Value="{DynamicResource CornerM}" />
     </Style>
@@ -57,9 +60,14 @@
         <Setter Property="BorderBrush" Value="{DynamicResource Highlight}" />
     </Style>
 
+    <!-- The text hosts (the raised wells, T-223): the fill lifts off the
+         plane it sits on (the derived SurfaceHigh well — on a card the
+         field reads as a well, never a second flat Surface), the stroke
+         rides the same derived ControlHairline the button family outlines
+         with; focus keeps the Accent stroke. -->
     <Style Selector="TextBox">
-        <Setter Property="Background" Value="{DynamicResource Surface}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+        <Setter Property="Background" Value="{DynamicResource SurfaceHigh}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlHairline}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
         <Setter Property="CornerRadius" Value="{DynamicResource CornerM}" />
     </Style>
@@ -68,8 +76,8 @@
     </Style>
 
     <Style Selector="ComboBox">
-        <Setter Property="Background" Value="{DynamicResource Surface}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+        <Setter Property="Background" Value="{DynamicResource SurfaceHigh}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlHairline}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
         <Setter Property="CornerRadius" Value="{DynamicResource CornerM}" />
     </Style>

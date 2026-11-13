@@ -20,14 +20,16 @@ namespace Livery.Themes;
 /// an accent that fails either leg is a hover/blank state the user never
 /// sees (the dark palette shipped at ~1.4:1, the light one ~1.2:1 — the
 /// review's finding).</item>
-/// <item>the derived button tints (<see cref="ButtonKeys"/>) — the generic
-/// button family's hover/press fills, blended from the palette's own
-/// Accent over its Surface. The soft hover is deliberately below the
-/// WCAG non-text bar (the approved variant A tint — the visibility duty
-/// rides the persistent hairline stroke, the tint is the state's color
-/// hint), so its battery leg is a state-existence floor (a tint measurably
-/// off its ground, never a no-op) plus the text legs over both tints and
-/// the primary fill's scored foreground.</item>
+/// <item>the derived control keys (<see cref="ButtonKeys"/>) — the generic
+/// button family's hover/press fills blended from the palette's own Accent
+/// over its Surface, plus the surface-family keys (the resting stroke's
+/// hairline and the input wells' raised fill, blended off the Surface
+/// toward its luminance pole). The soft hover and the wells are
+/// deliberately below the WCAG non-text bar (the approved variant A look —
+/// the visibility duty rides the persistent hairline stroke, the tints are
+/// the state's color hints), so their battery legs are state-existence
+/// floors (a blend measurably off its ground, never a no-op) plus the text
+/// legs over the fills and the primary fill's scored foreground.</item>
 /// <item><c>Highlight</c> — the on-state token: the checked decorations and
 /// the keyboard-focus tints (<c>Button:focus</c>'s border, the menu/tab
 /// focus text). Its text-bearing duty is the text-contrast battery's.</item>
@@ -84,10 +86,15 @@ public static class PaletteContract
     ];
 
     /// <summary>
-    /// The derived button rows (T-183): the pairs the button family's
-    /// soft-tint states create, resolved through the merged role table so
-    /// the walk stays uniform. The text legs over both tints, the primary
-    /// fill's scored foreground and the hover tint's state-existence floor.
+    /// The derived control rows (T-183, the surface-family extension
+    /// T-223): the pairs the control family's derived states create,
+    /// resolved through the merged role table so the walk stays uniform.
+    /// The text legs over both tints and the raised well, the primary
+    /// fill's scored foreground, and the state-existence floors (the hover
+    /// tint, the raised well and the hairline stroke must each sit
+    /// measurably off their surface ground — a no-op blend fails by name;
+    /// the hairline stroke carries the resting boundary duty, the tints
+    /// are the states' color hints).
     /// </summary>
     private static readonly (string Name, string Foreground, string Background, double Minimum)[] DerivedPairs =
     [
@@ -95,6 +102,9 @@ public static class PaletteContract
         ("text over the button pressed tint", "TextPrimary", ButtonKeys.PressedTintKey, TextPairMinimum),
         ("the primary fill's foreground", ButtonKeys.PrimaryForegroundKey, "Accent", TextPairMinimum),
         ("the button hover tint is a visible step over its surface", ButtonKeys.HoverTintKey, "Surface", SubtleTintStepMinimum),
+        ("text over the raised well fill", "TextPrimary", ButtonKeys.RaisedKey, TextPairMinimum),
+        ("the raised well is a visible step over its surface", ButtonKeys.RaisedKey, "Surface", SubtleTintStepMinimum),
+        ("the control hairline is a visible step over its surface", ButtonKeys.HairlineKey, "Surface", SubtleTintStepMinimum),
     ];
 
     /// <summary>

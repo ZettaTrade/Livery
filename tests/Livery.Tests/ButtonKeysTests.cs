@@ -6,12 +6,14 @@ using Livery.Themes;
 using Xunit;
 
 /// <summary>
-/// The button family's derivation pins (T-183): the soft-tint steps hold
-/// their approved alphas (12% hover, 22% press — the variant A shape),
-/// the exact blended bytes mirror the shared blend's deterministic
-/// rounding, the scored foreground always serves a readable pair over the
-/// primary fill, and the all-or-nothing contract refuses a palette that
-/// cannot serve both foundations.
+/// The control family's derivation pins (T-183, the surface-family
+/// extension T-223): the soft-tint steps hold their approved alphas
+/// (12% hover, 22% press — the variant A shape), the surface-family keys
+/// lift toward the surface's own pole (7% hairline, 3% raised well), the
+/// exact blended bytes mirror the shared blend's deterministic rounding,
+/// the scored foreground always serves a readable pair over the primary
+/// fill, and the all-or-nothing contract refuses a palette that cannot
+/// serve both foundations.
 /// </summary>
 public sealed class ButtonKeysTests
 {
@@ -43,6 +45,47 @@ public sealed class ButtonKeysTests
 
         derived.Should().NotBeNull();
         derived![ButtonKeys.PressedTintKey].Should().Be(Avalonia.Media.Color.Parse("#182d4e"));
+    }
+
+    [Fact]
+    public void TheHairline_LiftsOneStepTowardTheSurfacesOwnPole()
+    {
+        // The midnight story: Surface #161b22 is dark, so the resting
+        // stroke lifts toward white — the exact bytes the shared blend's
+        // rounding produces (7%).
+        var derived = ButtonKeys.TryDerive(Palette("#1f6feb", "#161b22"), out _);
+
+        derived.Should().NotBeNull();
+        derived![ButtonKeys.HairlineKey].Should().Be(Avalonia.Media.Color.Parse("#262b31"));
+    }
+
+    [Fact]
+    public void TheRaisedWell_BlendsTheRaisedStep()
+    {
+        var derived = ButtonKeys.TryDerive(Palette("#1f6feb", "#161b22"), out _);
+
+        derived.Should().NotBeNull();
+        derived![ButtonKeys.RaisedKey].Should().Be(Avalonia.Media.Color.Parse("#1d2229"));
+    }
+
+    [Fact]
+    public void TheSurfaceSteps_HoldTheApprovedSteps()
+    {
+        ButtonKeys.HairlineStep.Should().Be(0.07, "the resting stroke is the approved variant A hairline step");
+        ButtonKeys.RaisedStep.Should().Be(0.03, "the input wells ride the approved variant A raised fill");
+    }
+
+    [Fact]
+    public void ALightSurface_SinksTheStepsTowardBlack()
+    {
+        // The pole branch: a light surface's stroke and well darken instead
+        // of brightening — the step must read against the plane it sits
+        // on, whatever the variant.
+        var derived = ButtonKeys.TryDerive(Palette("#1f6feb", "#f3f4f6"), out _);
+
+        derived.Should().NotBeNull();
+        derived![ButtonKeys.HairlineKey].Should().Be(Avalonia.Media.Color.Parse("#e2e3e5"));
+        derived[ButtonKeys.RaisedKey].Should().Be(Avalonia.Media.Color.Parse("#ecedef"));
     }
 
     [Fact]
@@ -125,7 +168,7 @@ public sealed class ButtonKeysTests
     }
 
     [Fact]
-    public void TheFamily_CarriesExactlyTheThreePublishedKeys()
+    public void TheFamily_CarriesExactlyTheFivePublishedKeys()
     {
         var derived = ButtonKeys.TryDerive(Palette("#1f6feb", "#161b22"), out _);
 
@@ -134,6 +177,8 @@ public sealed class ButtonKeysTests
             ButtonKeys.HoverTintKey,
             ButtonKeys.PressedTintKey,
             ButtonKeys.PrimaryForegroundKey,
+            ButtonKeys.HairlineKey,
+            ButtonKeys.RaisedKey,
         });
     }
 }
