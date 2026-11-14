@@ -290,22 +290,22 @@ public sealed class StylePins
         var source = ControlsThemes;
 
         // The T-232 review round: the transfer arrows' framed composition
-        // fills the Surface under the family's hairline — the bare
-        // outline read as a text field, not a button — and the chip's
-        // state steps ride after the generic .icon blocks, so the fill
-        // survives every state (the generic hover tint and the focus
-        // clear would thin it out).
+        // fills the derived SurfaceHigh well — the bare outline read as a
+        // text field and the plain Surface fill sat 1:1 against the window
+        // background (nothing to see) — and the chip's state steps ride
+        // after the generic .icon blocks, so the fill survives every state
+        // (the generic hover tint and the focus clear would thin it out).
         source.Should().Contain(
             "<Style Selector=\"Button.icon.framed\">\n        <Setter Property=\"BorderThickness\" Value=\"1\" />\n        <Setter Property=\"Opacity\" Value=\"1\" />",
             "the chip reads full-bright at rest (the glyph dimming is for bare marks)");
         source.Should().Contain(
-            "<Style Selector=\"Button.icon.framed /template/ ContentPresenter#PART_ContentPresenter\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource Surface}\" />\n        <Setter Property=\"BorderBrush\" Value=\"{DynamicResource ControlHairline}\" />",
-            "the chip fills the Surface under the family hairline at rest");
+            "<Style Selector=\"Button.icon.framed /template/ ContentPresenter#PART_ContentPresenter\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource SurfaceHigh}\" />\n        <Setter Property=\"BorderBrush\" Value=\"{DynamicResource ControlHairline}\" />",
+            "the chip fills the raised well under the family hairline at rest");
         source.Should().Contain(
-            "<Style Selector=\"Button.icon.framed:focus /template/ ContentPresenter#PART_ContentPresenter\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource Surface}\" />",
+            "<Style Selector=\"Button.icon.framed:focus /template/ ContentPresenter#PART_ContentPresenter\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource SurfaceHigh}\" />",
             "keyboard focus keeps the fill the generic focus rule clears (the ring answers through the Highlight border)");
         source.Should().Contain(
-            "<Style Selector=\"Button.icon.framed:pointerover /template/ ContentPresenter#PART_ContentPresenter\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource Surface}\" />\n        <Setter Property=\"BorderBrush\" Value=\"{DynamicResource Highlight}\" />",
+            "<Style Selector=\"Button.icon.framed:pointerover /template/ ContentPresenter#PART_ContentPresenter\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource SurfaceHigh}\" />\n        <Setter Property=\"BorderBrush\" Value=\"{DynamicResource Highlight}\" />",
             "the hover answers with the Highlight stroke and keeps the fill");
         source.Should().Contain(
             "<Style Selector=\"Button.icon.framed:pressed\">\n        <Setter Property=\"Opacity\" Value=\"0.8\" />",

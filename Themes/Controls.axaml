@@ -404,21 +404,23 @@
     <!-- The framed chip (T-232's review round): the free-standing icon
          action — the transfer arrows between the settings' pair lists —
          must read as a BUTTON at rest, and the bare hairline outline read
-         as a text field instead, so the composition fills the Surface
-         under the family's hairline (the quiet solid chip) and reads
-         full-bright (the glyph dimming is for bare marks). The chip's
-         own state steps ride after the generic .icon blocks below, so
-         the fill survives every state: keyboard focus keeps the fill
-         (the ring answers through the Highlight border), the hover keeps
-         the fill and answers with the Highlight stroke (the generic
-         hover tint would thin the fill out), and the press dims the
-         whole chip like the row grammar's press. -->
+         as a text field instead, so the composition fills the derived
+         SurfaceHigh well (the raised step the input wells ride — a
+         Surface fill sat 1:1 against the window background and read as
+         nothing) under the family's hairline and reads full-bright (the
+         glyph dimming is for bare marks). The chip's own state steps ride
+         after the generic .icon blocks below, so the fill survives every
+         state: keyboard focus keeps the fill (the ring answers through
+         the Highlight border), the hover keeps the fill and answers with
+         the Highlight stroke (the generic hover tint would thin the fill
+         out), and the press dims the whole chip like the row grammar's
+         press. -->
     <Style Selector="Button.icon.framed">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Opacity" Value="1" />
     </Style>
     <Style Selector="Button.icon.framed /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource Surface}" />
+        <Setter Property="Background" Value="{DynamicResource SurfaceHigh}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ControlHairline}" />
     </Style>
 
@@ -444,16 +446,16 @@
     </Style>
 
     <!-- The framed chip's state steps: they ride after the generic .icon
-         blocks, so the chip's Surface fill survives every state — the
+         blocks, so the chip's raised fill survives every state — the
          focus keeps the fill (the ring answers through the Highlight
          border), the hover keeps the fill and answers with the Highlight
          stroke (the generic hover tint would thin the fill out), and the
          press dims the whole chip like the row grammar's press. -->
     <Style Selector="Button.icon.framed:focus /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource Surface}" />
+        <Setter Property="Background" Value="{DynamicResource SurfaceHigh}" />
     </Style>
     <Style Selector="Button.icon.framed:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource Surface}" />
+        <Setter Property="Background" Value="{DynamicResource SurfaceHigh}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Highlight}" />
     </Style>
     <Style Selector="Button.icon.framed:pressed">

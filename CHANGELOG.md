@@ -3,6 +3,16 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.16] - 2026-11-14
+
+- The framed chip fills the derived SurfaceHigh well instead of the plain
+  Surface (T-232's review round, the "nothing changed" finding): against
+  the midnight palette's Background (#0d1117) a Surface fill (#161b22)
+  sat 1:1 and the chip read exactly like its former bare outline. The
+  raised step (#1d2229 — the input wells' own tone) gives the transfer
+  arrows the visible solid body the chosen mockup promised; the state
+  steps keep the raised fill everywhere.
+
 ## [0.1.15] - 2026-11-14
 
 - The framed icon composition becomes the framed chip (T-232's review
