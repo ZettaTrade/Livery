@@ -3,6 +3,19 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.15] - 2026-11-14
+
+- The framed icon composition becomes the framed chip (T-232's review
+  round): the free-standing icon action — the settings' pair-transfer
+  arrows — fills the Surface under the family's hairline outline and
+  reads full-bright at rest, because the bare hairline outline read as a
+  text field instead of a button. The chip's state steps ride after the
+  generic .icon blocks, so the fill survives every state: the hover keeps
+  the fill and answers with the Highlight stroke (the generic hover tint
+  would thin the fill out), the press dims the whole chip (the row
+  grammar's opacity step), and keyboard focus keeps the fill the generic
+  focus rule clears while the ring answers through the Highlight border.
+
 ## [0.1.14] - 2026-11-14
 
 - The icon buttons answer the pointer (T-232): the hover paints the button
