@@ -3,6 +3,23 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.14] - 2026-11-14
+
+- The icon buttons answer the pointer (T-232): the hover paints the button
+  family's soft tint step (ButtonHoverTint) and the press the stronger step
+  (ButtonPressedTint) on the template's content presenter — the Fluent button
+  paints its state fill there, so the presenter is both the suppression and
+  the tint target; the old opacity nudge (0.85 → 1.0) never read as feedback,
+  so every borderless icon action (the settings' pair-transfer arrows, the
+  chart's drawing tools, the toolbar glyphs) read as static marks. Keyboard
+  focus draws the family's Highlight ring on the presenter (a 0-thickness
+  button border paints nothing). The armed `.on` contrast stands on the kept
+  0.85 rest dimming.
+- The framed composition `Button.icon.framed`: the free-standing icon actions
+  (the settings' pair transfers) gain the family's hairline outline at rest
+  and answer the hover with the Highlight stroke — a mark-only button in a
+  list context reads as decoration, not as a control.
+
 ## [0.1.13] - 2026-11-14
 
 - The surface-family steps guarantee the contract floor (T-223): the shipped

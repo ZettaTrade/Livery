@@ -254,12 +254,43 @@ public sealed class StylePins
                      "<Style Selector=\"Button.icon:pointerover\">",
                      "<Style Selector=\"Button.icon:pressed\">",
                      "<Style Selector=\"Button.icon:focus\">",
+                     "<Style Selector=\"Button.icon.framed\">",
+                     "<Style Selector=\"Button.icon.framed /template/ ContentPresenter#PART_ContentPresenter\">",
                  })
         {
             source.Should().Contain(
                 selector,
-                "the icon-button class carries the strip-action shape and its state feedback");
+                "the icon-button class carries the strip-action shape, its state feedback and the framed composition");
         }
+    }
+
+    [Fact]
+    public void TheChromeKit_TheIconButtonAnswersThePointerWithTints()
+    {
+        var source = ControlsThemes;
+
+        // T-232: the icon button's pointer answer is the button family's
+        // tint language painted on the template presenter — the old opacity
+        // race (0.85 -> 1.0) never read as feedback — and the armed contrast
+        // stands on the kept rest dimming.
+        source.Should().Contain(
+            "<Style Selector=\"Button.icon:pointerover /template/ ContentPresenter#PART_ContentPresenter\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource ButtonHoverTint}\" />",
+            "the icon hover answers with the family's soft tint on the presenter");
+        source.Should().Contain(
+            "<Style Selector=\"Button.icon:pressed /template/ ContentPresenter#PART_ContentPresenter\">\n        <Setter Property=\"Background\" Value=\"{DynamicResource ButtonPressedTint}\" />",
+            "the icon press answers with the stronger tint step on the presenter");
+        source.Should().Contain(
+            "<Style Selector=\"Button.icon:focus /template/ ContentPresenter#PART_ContentPresenter\">\n        <Setter Property=\"Background\" Value=\"Transparent\" />\n        <Setter Property=\"BorderBrush\" Value=\"{DynamicResource Highlight}\" />\n        <Setter Property=\"BorderThickness\" Value=\"1\" />",
+            "keyboard focus lands the Highlight ring on the presenter (a 0-thickness button border paints nothing)");
+        source.Should().Contain(
+            "<Style Selector=\"Button.icon.framed\">\n        <Setter Property=\"BorderThickness\" Value=\"1\" />",
+            "the framed composition owns its outline thickness");
+        source.Should().Contain(
+            "<Style Selector=\"Button.icon.framed /template/ ContentPresenter#PART_ContentPresenter\">\n        <Setter Property=\"BorderBrush\" Value=\"{DynamicResource ControlHairline}\" />",
+            "the framed rest outline rides the family hairline");
+        source.Should().Contain(
+            "<Style Selector=\"Button.icon.framed:pointerover /template/ ContentPresenter#PART_ContentPresenter\">\n        <Setter Property=\"BorderBrush\" Value=\"{DynamicResource Highlight}\" />",
+            "the framed hover answers with the Highlight stroke");
     }
 
     [Fact]

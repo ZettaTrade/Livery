@@ -380,10 +380,17 @@
     </Style>
 
     <!-- The icon button: the strip-icon-like action — borderless and
-         background-free with the title-bar strip's opacity feedback. The
-         Fluent button paints its state fill on the template's content
-         presenter, so the presenter is the suppression target (the same
-         mechanism the title-bar strip-icon styles carry). -->
+         background-free at rest, the strip's 0.85 dimming kept (the armed
+         .on contrast stands on it). The pointer answers with the button
+         family's own soft-tint language (T-232): the hover paints the
+         ButtonHoverTint step and the press the stronger ButtonPressedTint
+         step on the template's content presenter — the Fluent button
+         paints its state fill there, so the presenter is both the
+         suppression and the tint target (the same mechanism the title-bar
+         strip-icon styles carry); the old opacity nudge (0.85 -> 1.0)
+         never read as an answer. Keyboard focus draws the family's ring:
+         the Highlight stroke rides the presenter too (a 0-thickness
+         button border paints nothing). -->
     <Style Selector="Button.icon">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
@@ -393,24 +400,42 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
     </Style>
+
+    <!-- The framed icon (T-232): the free-standing icon action — the
+         transfer arrows between the settings' pair lists — must read as a
+         button at rest, so the composition adds the family's hairline
+         outline over the borderless mark and answers the hover with the
+         Highlight stroke (the rest state's legibility is the point; the
+         tint steps stay the block's shared pointer language). -->
+    <Style Selector="Button.icon.framed">
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="Button.icon.framed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlHairline}" />
+    </Style>
+    <Style Selector="Button.icon.framed:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="BorderBrush" Value="{DynamicResource Highlight}" />
+    </Style>
+
     <Style Selector="Button.icon:pointerover">
         <Setter Property="Opacity" Value="1" />
     </Style>
     <Style Selector="Button.icon:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource ButtonHoverTint}" />
     </Style>
     <Style Selector="Button.icon:pressed">
-        <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="Opacity" Value="1" />
     </Style>
     <Style Selector="Button.icon:pressed /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource ButtonPressedTint}" />
     </Style>
     <Style Selector="Button.icon:focus">
         <Setter Property="Opacity" Value="1" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Highlight}" />
     </Style>
     <Style Selector="Button.icon:focus /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Highlight}" />
+        <Setter Property="BorderThickness" Value="1" />
     </Style>
 
     <!-- The armed icon (the .on class composed over .icon): the armed
