@@ -30,13 +30,16 @@ using Avalonia.Media;
 /// short). The hover/press tints keep the request-pure shape: they derive
 /// from the Accent, the theme's own interactive color, so a no-op blend
 /// fails the battery by name — the palette must ship a usable Accent.
-/// The surface-family keys (T-223) blend from the Surface alone: the
-/// resting control's boundary stroke (<see cref="HairlineKey"/> — the
-/// plain <c>Border</c> role vanishes against the very cards and strips a
-/// button sits on, so the stroke derives its own visible step) and the
-/// input wells' raised fill (<see cref="RaisedKey"/> — the combo/textbox
-/// hosts ride the approved variant A's raised-well look). Both lift toward
-/// the surface's contrast pole, chosen by the surface's own luminance: a
+/// The surface-family keys (T-223, the T-232 plate) blend from the
+/// Surface alone: the resting control's boundary stroke
+/// (<see cref="HairlineKey"/> — the plain <c>Border</c> role vanishes
+/// against the very cards and strips a button sits on, so the stroke
+/// derives its own visible step), the input wells' raised fill
+/// (<see cref="RaisedKey"/> — the combo/textbox hosts ride the approved
+/// variant A's raised-well look) and the framed chip's plate fill
+/// (<see cref="PlateKey"/> — a free-standing action must read as a
+/// BUTTON over the section card it sits on, the T-232 review round's
+/// plate read). All lift toward the surface's contrast pole, chosen by the surface's own luminance: a
 /// dark theme's stroke brightens, a light theme's darkens — the step must
 /// read AGAINST the plane it sits on, whatever the variant, and the floor
 /// walk keeps that promise on the extreme grounds.
@@ -64,6 +67,9 @@ internal static class ButtonKeys
     /// <summary>The resource key of the input hosts' raised well fill (the Surface lifted one raised step).</summary>
     public const string RaisedKey = "SurfaceHigh";
 
+    /// <summary>The resource key of the framed chip's plate fill (the Surface lifted one plate step).</summary>
+    public const string PlateKey = "SurfacePlate";
+
     /// <summary>The palette role the tints blend toward and the primary scores against.</summary>
     public const string AccentPaletteKey = "Accent";
 
@@ -89,6 +95,14 @@ internal static class ButtonKeys
     /// the pair short of the contract floor.
     /// </summary>
     public const double RaisedStep = 0.03;
+
+    /// <summary>
+    /// The framed chip's plate step: the Surface lifted 7% toward its
+    /// contrast pole — the T-232 review round's plate read (the wells' 3%
+    /// step sat 1.08:1 over the section card's Surface plane and read as
+    /// nothing; the plate clears the approved mockup's 1.18 floor there).
+    /// </summary>
+    public const double PlateStep = 0.07;
 
     /// <summary>
     /// The floor walk's grain: the surface-family steps raise by 0.5% per
@@ -130,6 +144,7 @@ internal static class ButtonKeys
             [PrimaryForegroundKey] = Color.Parse(ChooseForeground(accent)),
             [HairlineKey] = BlendWithFloor(surface, pole, HairlineStep, PaletteContract.SubtleTintStepMinimum),
             [RaisedKey] = BlendWithFloor(surface, pole, RaisedStep, PaletteContract.SubtleTintStepMinimum),
+            [PlateKey] = BlendWithFloor(surface, pole, PlateStep, PaletteContract.SubtleTintStepMinimum),
         };
     }
 

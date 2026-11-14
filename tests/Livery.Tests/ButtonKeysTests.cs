@@ -7,15 +7,15 @@ using Xunit;
 
 /// <summary>
 /// The control family's derivation pins (T-183, the surface-family
-/// extension T-223): the soft-tint steps hold their approved alphas
-/// (12% hover, 22% press — the variant A shape), the surface-family keys
-/// lift toward the surface's own pole (7% hairline, 3% raised well), the
-/// exact blended bytes mirror the shared blend's deterministic rounding,
-/// the scored foreground always serves a readable pair over the primary
-/// fill, and the all-or-nothing contract refuses a palette that cannot
-/// serve both foundations — and the surface-family steps guarantee the
-/// contract floor on the extreme grounds (the 0.5% grain walk, the oled
-/// catch).
+/// extension T-223, the T-232 plate): the soft-tint steps hold their
+/// approved alphas (12% hover, 22% press — the variant A shape), the
+/// surface-family keys lift toward the surface's own pole (7% hairline,
+/// 3% raised well, 7% plate), the exact blended bytes mirror the shared
+/// blend's deterministic rounding, the scored foreground always serves a
+/// readable pair over the primary fill, and the all-or-nothing contract
+/// refuses a palette that cannot serve both foundations — and the
+/// surface-family steps guarantee the contract floor on the extreme
+/// grounds (the 0.5% grain walk, the oled catch).
 /// </summary>
 public sealed class ButtonKeysTests
 {
@@ -71,10 +71,26 @@ public sealed class ButtonKeysTests
     }
 
     [Fact]
+    public void ThePlate_BlendsThePlateStep()
+    {
+        // The T-232 plate story: the wells' 3% step sat 1.08:1 over the
+        // section card's own Surface plane and read as nothing — the plate
+        // lifts the 7% request (the hairline's step) toward the pole, and
+        // over midnight the request clears the floor untouched, so the
+        // exact bytes ride the shared blend's rounding (the same bytes the
+        // hairline ships over the same ground).
+        var derived = ButtonKeys.TryDerive(Palette("#1f6feb", "#161b22"), out _);
+
+        derived.Should().NotBeNull();
+        derived![ButtonKeys.PlateKey].Should().Be(Avalonia.Media.Color.Parse("#262b31"));
+    }
+
+    [Fact]
     public void TheSurfaceSteps_HoldTheApprovedSteps()
     {
         ButtonKeys.HairlineStep.Should().Be(0.07, "the resting stroke is the approved variant A hairline step");
         ButtonKeys.RaisedStep.Should().Be(0.03, "the input wells ride the approved variant A raised fill");
+        ButtonKeys.PlateStep.Should().Be(0.07, "the framed chip's plate reads over the card like the approved mockup did");
     }
 
     [Fact]
@@ -88,6 +104,8 @@ public sealed class ButtonKeysTests
         derived.Should().NotBeNull();
         derived![ButtonKeys.HairlineKey].Should().Be(Avalonia.Media.Color.Parse("#e2e3e5"));
         derived[ButtonKeys.RaisedKey].Should().Be(Avalonia.Media.Color.Parse("#ecedef"));
+        derived[ButtonKeys.PlateKey].Should().Be(Avalonia.Media.Color.Parse("#e2e3e5"),
+            "the plate lifts the same 7% request the hairline rides, so the light pole sinks them to the same bytes");
     }
 
     [Theory]
@@ -104,7 +122,7 @@ public sealed class ButtonKeysTests
         var derived = ButtonKeys.TryDerive(Palette("#1f6feb", surface), out _);
 
         derived.Should().NotBeNull();
-        foreach (var key in new[] { ButtonKeys.HairlineKey, ButtonKeys.RaisedKey })
+        foreach (var key in new[] { ButtonKeys.HairlineKey, ButtonKeys.RaisedKey, ButtonKeys.PlateKey })
         {
             var lifted = derived![key];
             var ratio = Contrast.Ratio(
@@ -134,6 +152,9 @@ public sealed class ButtonKeysTests
         derived[ButtonKeys.HairlineKey].Should().Be(
             Avalonia.Media.Color.Parse("#1b1b1b"),
             "the 7% request clears the floor over #0a0a0a, so the walk leaves it at the request");
+        derived[ButtonKeys.PlateKey].Should().Be(
+            Avalonia.Media.Color.Parse("#1b1b1b"),
+            "the plate lifts the same 7% request the hairline rides, so the walk leaves it at the request too");
     }
 
     [Fact]
@@ -148,6 +169,8 @@ public sealed class ButtonKeysTests
         derived.Should().NotBeNull();
         derived![ButtonKeys.RaisedKey].Should().Be(Avalonia.Media.Color.Parse("#090909"));
         derived[ButtonKeys.HairlineKey].Should().Be(Avalonia.Media.Color.Parse("#121212"));
+        derived[ButtonKeys.PlateKey].Should().Be(Avalonia.Media.Color.Parse("#121212"),
+            "the plate lifts the same 7% request the hairline rides, so the true black grounds them to the same bytes");
     }
 
     [Fact]
@@ -230,7 +253,7 @@ public sealed class ButtonKeysTests
     }
 
     [Fact]
-    public void TheFamily_CarriesExactlyTheFivePublishedKeys()
+    public void TheFamily_CarriesExactlyThePublishedKeys()
     {
         var derived = ButtonKeys.TryDerive(Palette("#1f6feb", "#161b22"), out _);
 
@@ -241,6 +264,7 @@ public sealed class ButtonKeysTests
             ButtonKeys.PrimaryForegroundKey,
             ButtonKeys.HairlineKey,
             ButtonKeys.RaisedKey,
+            ButtonKeys.PlateKey,
         });
     }
 }

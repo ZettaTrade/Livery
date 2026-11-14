@@ -401,26 +401,30 @@
         <Setter Property="BorderBrush" Value="Transparent" />
     </Style>
 
-    <!-- The framed chip (T-232's review round): the free-standing icon
+    <!-- The framed chip (T-232's review rounds): the free-standing icon
          action — the transfer arrows between the settings' pair lists —
          must read as a BUTTON at rest, and the bare hairline outline read
          as a text field instead, so the composition fills the derived
-         SurfaceHigh well (the raised step the input wells ride — a
-         Surface fill sat 1:1 against the window background and read as
-         nothing) under the family's hairline and reads full-bright (the
-         glyph dimming is for bare marks). The chip's own state steps ride
-         after the generic .icon blocks below, so the fill survives every
-         state: keyboard focus keeps the fill (the ring answers through
-         the Highlight border), the hover keeps the fill and answers with
-         the Highlight stroke (the generic hover tint would thin the fill
-         out), and the press dims the whole chip like the row grammar's
-         press. -->
+         SurfacePlate (the plate step the chip's plate rides — the wells'
+         SurfaceHigh sat 1.08:1 over the section card's own Surface plane
+         and read as nothing; the plate's 7% step clears the approved
+         mockup's plate contrast there) under the family's hairline and
+         reads full-bright (the glyph dimming is for bare marks). The
+         chip's own state steps ride after the generic .icon blocks below,
+         so the fill survives every state: keyboard focus keeps the fill
+         (the ring answers through the Highlight border), the hover keeps
+         the fill and answers with the Highlight stroke (the generic hover
+         tint would thin the fill out), the press dims the whole chip like
+         the row grammar's press, and the gate-disabled chip reads asleep
+         (the commands' CanExecute gates — a no-pick chip answers nothing,
+         and a full-bright chip that answers nothing was the broken-hover
+         read the second review caught). -->
     <Style Selector="Button.icon.framed">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Opacity" Value="1" />
     </Style>
     <Style Selector="Button.icon.framed /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource SurfaceHigh}" />
+        <Setter Property="Background" Value="{DynamicResource SurfacePlate}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ControlHairline}" />
     </Style>
 
@@ -452,14 +456,25 @@
          stroke (the generic hover tint would thin the fill out), and the
          press dims the whole chip like the row grammar's press. -->
     <Style Selector="Button.icon.framed:focus /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource SurfaceHigh}" />
+        <Setter Property="Background" Value="{DynamicResource SurfacePlate}" />
     </Style>
     <Style Selector="Button.icon.framed:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource SurfaceHigh}" />
+        <Setter Property="Background" Value="{DynamicResource SurfacePlate}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Highlight}" />
     </Style>
     <Style Selector="Button.icon.framed:pressed">
         <Setter Property="Opacity" Value="0.8" />
+    </Style>
+    <!-- The gate-disabled chip (T-232's second review round): the
+         transfer commands' CanExecute gates shut the chips before any
+         pick exists, and a disabled control never arms the pointer — the
+         kit has no other disabled read, so the chip sat full-bright and
+         answered nothing: the broken-hover read the review caught. The
+         asleep dim steps the whole chip down (the fill and the glyph
+         together — the asleep read the bare marks' grammar already owns)
+         and the enabled plate stays the only full-bright chip. -->
+    <Style Selector="Button.icon.framed:disabled">
+        <Setter Property="Opacity" Value="0.55" />
     </Style>
 
     <!-- The armed icon (the .on class composed over .icon): the armed

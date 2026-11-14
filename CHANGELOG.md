@@ -3,6 +3,23 @@
 All notable changes to the Livery package are documented here.
 Versions are the published NuGet versions.
 
+## [0.1.17] - 2026-11-14
+
+- The framed chip fills the derived SurfacePlate instead of SurfaceHigh
+  (T-232's second review round): the wells' 3% step sat 1.08:1 over the
+  section card's own Surface plane and read as nothing, while the
+  approved mockup promised a 1.18 plate read. The plate key lifts the
+  Surface 7% toward its own pole (the hairline's step, the floor walk
+  keeps it on the extreme grounds; midnight #262b31, 1.21:1 over the
+  card). The wells keep their 3% step.
+- The gate-disabled framed chip reads asleep: the transfer commands'
+  CanExecute gates shut the chips before any pick exists, a disabled
+  control never arms the pointer, and the kit had no disabled read at
+  all - so a full-bright chip sat there answering nothing (the
+  broken-hover read the review caught). The new
+  Button.icon.framed:disabled style steps the whole chip to Opacity 0.55
+  (the asleep read the bare marks' grammar already owns).
+
 ## [0.1.16] - 2026-11-14
 
 - The framed chip fills the derived SurfaceHigh well instead of the plain
